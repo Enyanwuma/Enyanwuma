@@ -3,7 +3,7 @@
 - 🌱 I’m currently working on c++ , blender designing 
 - 💞️ I’m looking to collaborate on python projects,app development.
 - 📫 contact:+234 9061242119
-- 😄 Pronouns: they or them
+- 😄 Pronouns: he or him
 - ⚡ Fun fact: don't stop now cause u started this urself be wise and finish the job 
 
 <!---
