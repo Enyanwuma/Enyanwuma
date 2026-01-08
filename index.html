@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile | Digital Creator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0c0c1d;
+            --secondary: #1a1a3a;
+            --accent: #00ff9d;
+            --accent-dark: #00cc7a;
+            --accent-light: #66ffc2;
+            --text: #e0e0ff;
+            --text-secondary: #a0a0c0;
+            --warning: #ff5555;
+            --scrollbar: #00ff9d55;
+            --van-dragon: #ff00cc;
+            --card-bg: rgba(10, 10, 25, 0.7);
+            --border-color: rgba(0, 255, 157, 0.2);
+        }
+        
+        .theme-dragonfire {
+            --primary: #1a0c1d;
+            --secondary: #3a1a2e;
+            --accent: #ff3366;
+            --accent-dark: #cc0044;
+            --accent-light: #ff6699;
+            --text: #ffe0ff;
+            --text-secondary: #c0a0b0;
+            --van-dragon: #ffcc00;
+            --border-color: rgba(255, 51, 102, 0.3);
+            --card-bg: rgba(25, 10, 20, 0.8);
+        }
+        
+        .theme-cybervoid {
+            --primary: #000814;
+            --secondary: #0d1b2a;
+            --accent: #00b4d8;
+            --accent-dark: #0077b6;
+            --accent-light: #90e0ef;
+            --text: #e2eafc;
+            --text-secondary: #a0b0d0;
+            --van-dragon: #9d4edd;
+            --border-color: rgba(0, 180, 216, 0.3);
+            --card-bg: rgba(13, 27, 42, 0.8);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: var(--primary);
+            color: var(--text);
+            font-family: 'Share Tech Mono', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(26, 26, 58, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(26, 26, 58, 0.3) 0%, transparent 20%),
+                linear-gradient(to bottom, var(--primary), #000);
+            transition: background-color 0.5s, color 0.5s;
+        }
+        
+        .profile-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .profile-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+            margin-bottom: 10px;
+        }
+        
+        .profile-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 600px;
+        }
+        
+        .theme-controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .theme-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text);
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Share Tech Mono', monospace;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .theme-btn:hover {
+            background: rgba(0, 255, 157, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .theme-btn.active {
+            background: rgba(0, 255, 157, 0.2);
+            border-color: var(--accent);
+        }
+        
+        .layout-toggle {
+            display: flex;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+        
+        .layout-btn {
+            padding: 10px 15px;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .layout-btn:hover {
+            background: rgba(0, 255, 157, 0.1);
+        }
+        
+        .layout-btn.active {
+            background: rgba(0, 255, 157, 0.2);
+        }
+        
+        .profile-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+        
+        .profile-sidebar {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .avatar-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--accent);
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--van-dragon) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+        }
+        
+        .user-name {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .user-title {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: rgba(26, 26, 58, 0.3);
+            border-radius: 4px;
+        }
+        
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(26, 26, 58, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid var(--border-color);
+        }
+        
+        .social-link:hover {
+            background: rgba(0, 255, 157, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .profile-main {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        .profile-section {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .works-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .work-card {
+            background: rgba(20, 20, 40, 0.5);
+            border-radius: 6px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid var(--border-color);
+        }
+        
+        .work-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent);
+        }
+        
+        .work-card.grid-view {
+            height: 100%;
+        }
+        
+        .work-card.list-view {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        
+        .work-image {
+            height: 180px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--accent);
+        }
+        
+        .list-view .work-image {
+            height: 120px;
+            width: 200px;
+            min-width: 200px;
+        }
+        
+        .work-content {
+            padding: 20px;
+        }
+        
+        .work-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .work-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .work-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .work-tag {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--accent-light);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+        }
+        
+        .videos-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+        
+        .video-card {
+            background: rgba(20, 20, 40, 0.5);
+            border-radius: 6px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid var(--border-color);
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        
+        .video-thumbnail {
+            height: 180px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--van-dragon) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            position: relative;
+        }
+        
+        .play-btn {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .video-content {
+            padding: 20px;
+        }
+        
+        .video-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+        
+        .contact-form {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-label {
+            margin-bottom: 8px;
+            color: var(--accent);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+        }
+        
+        .form-input, .form-textarea {
+            background: rgba(20, 20, 40, 0.7);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 12px 15px;
+            color: var(--text);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
+        }
+        
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--primary);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 4px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
+        }
+        
+        .profile-footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+        
+        .copyright {
+            margin-bottom: 10px;
+        }
+        
+        .dragon-seed {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--van-dragon);
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 100;
+            animation: dragonSeed 3s infinite;
+        }
+        
+        @keyframes dragonSeed {
+            0% { transform: translate(0, 0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translate(100px, 100px); opacity: 0; }
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(10, 10, 25, 0.5);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+        
+        @media (max-width: 1024px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-sidebar {
+                position: static;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .theme-controls {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .works-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .videos-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .work-card.list-view {
+                flex-direction: column;
+            }
+            
+            .list-view .work-image {
+                width: 100%;
+                min-width: 100%;
+            }
+            
+            .profile-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <header class="profile-header">
+            <div>
+                <!-- EDIT YOUR NAME/TITLE HERE -->
+                <h1 class="profile-title">ENYANWUMA DANIEL IKECHUKWU</h1>
+                <p class="profile-subtitle">Funny how thw world works🌺</p>
+                
+                <div class="theme-controls">
+                    <button class="theme-btn active" id="default-theme">
+                        <i class="fas fa-code"></i> Default
+                    </button>
+                    <button class="theme-btn" id="dragonfire-theme">
+                        <i class="fas fa-fire"></i> Dragonfire
+                    </button>
+                    <button class="theme-btn" id="cybervoid-theme">
+                        <i class="fas fa-atom"></i> Cybervoid
+                    </button>
+                    
+                    <div class="layout-toggle">
+                        <button class="layout-btn active" id="grid-layout">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button class="layout-btn" id="list-layout">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="profile-content">
+            <aside class="profile-sidebar">
+                <div class="avatar-container">
+                    <!-- EDIT YOUR AVATAR/IMAGE HERE -->
+                    <div class="avatar">
+                        <img src="images/your-image.JPEG" alt="Your Name" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"> <!-- Change icon or replace with <img> -->
+                    </div>
+                    <h2 class="user-name">Daniel</h2>
+                    <p class="user-title">Bio-medical Engineer/software developer</p>
+                </div>
+                
+                <div class="stats">
+                    <!-- EDIT YOUR STATS HERE -->
+                    <div class="stat-item">
+                        <div class="stat-value">24</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">5</div>
+                        <div class="stat-label">Years</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Videos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">∞</div>
+                        <div class="stat-label">Ideas</div>
+                    </div>
+                </div>
+                
+                <!-- EDIT YOUR BIO HERE -->
+                <p style="margin-bottom: 20px; font-size: 0.9rem; color: var(--text-secondary);">
+                    "Perceiving reality as nested functions and variables. My works manifest through conceptual bracketing and temporal debugging."
+                </p>
+                
+                <div class="social-links">
+                    <!-- EDIT YOUR SOCIAL LINKS HERE -->
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                </div>
+            </aside>
+            
+            <main class="profile-main">
+                <section class="profile-section">
+                    <h2 class="section-title">
+                        <span><i class="fas fa-cube"></i> MY WORKS</span>
+                        <span class="works-count">Featured Projects</span>
+                    </h2>
+                    
+                    <div class="works-grid" id="works-container">
+                        <!-- EDIT YOUR WORK ITEMS HERE -->
+                        <div class="work-card grid-view">
+                            <div class="work-image">
+                                <img src="images/pt.png" alt="Your Name" style="width:100%;height:100%;object-fit:cover;"> <!-- Change icon per project -->
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">Graphics Design</h3>
+                                <p class="work-desc">Graphic design blends creativity with strategy, using tools like Adobe Illustrator, Photoshop, or Figma to produce visuals that inform, persuade, and engage audiences in everyday life.</p>
+                                <div class="work-tags">
+                                    <span class="work-tag">Web Design</span>
+                                    <span class="work-tag">UI/UX</span>
+                                    <span class="work-tag">2023</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="work-card grid-view">
+                            <div class="work-image">
+                               <img src="images/pr.png" alt="Your Name" style="width:100%;height:100%;object-fit:cover;">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">Blender</h3>
+                                <p class="work-desc">Modeling: Blockout → refine topology → UV unwrap → LODs for game assets.</p>
+                                <div class="work-tags">
+                                    <span class="work-tag">Blender 3d modeling</span>
+                                    <span class="work-tag">scripting</span>
+                                    <span class="work-tag">2024</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="work-card grid-view">
+                            <div class="work-image">
+                               <img src="images/c.webp" alt="Your Name" style="width:100%;height:100%;object-fit:cover;">
+                            </div>
+                            <div class="work-content">
+                                <h3 class="work-title">Capcut</h3>
+                                <p class="work-desc">Graphic design blends creativity with strategy, using tools like Adobe Illustrator, Photoshop, or Figma to produce visuals that inform, persuade, and engage audiences in everyday life.
+
+</p>
+                                <div class="work-tags">
+                                    <span class="work-tag">content creator</span>
+                                    <span class="work-tag">social media</span>
+                                    <span class="work-tag">2023</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="profile-section">
+                    <h2 class="section-title">
+                        <span><i class="fas fa-play-circle"></i> VIDEO CONTENT</span>
+                        <span class="video-count">My Videos</span>
+                    </h2>
+                    
+                    <div class="videos-container">
+                        <!-- EDIT YOUR VIDEO ITEMS HERE -->
+                        <div class="video-card">
+                            <div class="video-thumbnail">
+                                <i class="fas fa-video"></i> <!-- You can replace with actual thumbnail images -->
+                                <div class="play-btn">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                            <div class="video-content">
+                                <h3 class="video-title">Video Title 1</h3>
+                                <p class="work-desc">Description of your video content. What is it about? Tutorial? Showcase? Vlog?</p>
+                                <div class="video-meta">
+                                    <span><i class="far fa-clock"></i> 15:42</span>
+                                    <span><i class="far fa-eye"></i> 1.2K views</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="video-card">
+                            <div class="video-thumbnail">
+                                <i class="fas fa-film"></i>
+                                <div class="play-btn">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                            <div class="video-content">
+                                <h3 class="video-title">Video Title 2</h3>
+                                <p class="work-desc">Another video description. You can add more videos by copying this structure.</p>
+                                <div class="video-meta">
+                                    <span><i class="far fa-clock"></i> 22:18</span>
+                                    <span><i class="far fa-eye"></i> 3.4K views</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="profile-section">
+                    <h2 class="section-title">
+                        <span><i class="fas fa-terminal"></i> CONTACT ME</span>
+                        <span>Get In Touch</span>
+                    </h2>
+                    
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="name">Your Name</label>
+                                <input type="text" id="name" class="form-input" placeholder="Enter your name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="email">Email Address</label>
+                                <input type="email" id="email" class="form-input" placeholder="Your email for reply" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-input" placeholder="What is this about?" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="message">Message</label>
+                            <textarea id="message" class="form-textarea" placeholder="Your message here..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="interest">Interest Area</label>
+                            <select id="interest" class="form-input">
+                                <option value="">Select an option</option>
+                                <option value="collab">Collaboration</option>
+                                <option value="work">Work Inquiry</option>
+                                <option value="question">Question</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> SEND MESSAGE
+                        </button>
+                    </form>
+                </section>
+            </main>
+        </div>
+        
+        <footer class="profile-footer">
+            <!-- EDIT FOOTER TEXT HERE -->
+            <p class="copyright">© 2024 Your Name. All digital rights reserved.</p>
+            <p>Built with Van_Dragon Codex aesthetic</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme Switching
+        document.querySelectorAll('.theme-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                document.body.classList.remove('theme-dragonfire', 'theme-cybervoid');
+                
+                if (this.id === 'dragonfire-theme') {
+                    document.body.classList.add('theme-dragonfire');
+                } else if (this.id === 'cybervoid-theme') {
+                    document.body.classList.add('theme-cybervoid');
+                }
+            });
+        });
+        
+        // Layout Switching
+        document.querySelectorAll('.layout-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.layout-btn').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                const layout = this.id === 'grid-layout' ? 'grid' : 'list';
+                const works = document.querySelectorAll('.work-card');
+                works.forEach(work => {
+                    work.classList.remove('grid-view', 'list-view');
+                    work.classList.add(`${layout}-view`);
+                });
+            });
+        });
+        
+        // Form Submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you! Your message has been sent. I\'ll get back to you soon.');
+            this.reset();
+        });
+        
+        // Dragon Seed Animation
+        function createDragonSeeds() {
+            for (let i = 0; i < 15; i++) {
+                const seed = document.createElement('div');
+                seed.className = 'dragon-seed';
+                seed.style.left = `${Math.random() * 100}%`;
+                seed.style.top = `${Math.random() * 100}%`;
+                seed.style.animationDelay = `${Math.random() * 3}s`;
+                seed.style.animationDuration = `${3 + Math.random() * 2}s`;
+                document.body.appendChild(seed);
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createDragonSeeds();
+        });
+    </script>
+</body>
+</html>
