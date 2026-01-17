@@ -1,43 +1,21 @@
-name: Update README with Dynamic Content
+name: Update README Stats
 
 on:
   schedule:
-    # Runs daily at 00:00 UTC
-    - cron: '0 0 * * *'
-  workflow_dispatch:  # Allow manual triggers
-  push:
-    paths:
-      - 'scripts/update_readme.py'
-      - 'README_TEMPLATE.md'
+    - cron: '0 0 * * 0'  # Weekly
+  workflow_dispatch:
 
 jobs:
-  update-readme:
+  update:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    
     steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      
+      - uses: anmol098/waka-readme-stats@master
         with:
-          fetch-depth: 0
-
-      - name: 🐍 Set up Python
-        uses: actions/setup-python@v4
+          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+          SHOW_PROFILE_VIEWS: true
+          
+      - uses: athul/waka-readme@master
         with:
-          python-version: '3.10'
-
-      - name: 📊 Update README
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_USERNAME: ${{ github.repository_owner }}
-        run: |
-          pip install requests
-          python scripts/update_readme.py
-
-      - name: 💾 Commit and push changes
-        run: |
-          git config --global user.name 'GitHub Action'
-          git config --global user.email 'action@github.com'
-          git add README.md
-          git diff --quiet && git diff --staged --quiet || (git commit -m "📈 Update README with latest activity [$(date +%Y-%m-%d)]" && git push)
+          WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
