@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Van_Dragon Contribution Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0c0c1d;
+            --secondary: #1a1a3a;
+            --accent: #00ff9d;
+            --accent-dark: #00cc7a;
+            --accent-light: #66ffc2;
+            --text: #e0e0ff;
+            --text-secondary: #a0a0c0;
+            --card-bg: rgba(10, 10, 25, 0.7);
+            --border-color: rgba(0, 255, 157, 0.2);
+            --dragonfire: #ff3366;
+            --cybervoid: #00b4d8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background: var(--primary);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(26, 26, 58, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(26, 26, 58, 0.3) 0%, transparent 20%),
+                linear-gradient(to bottom, var(--primary), #000);
+        }
+
+        .dragon-seed {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 5s infinite ease-in-out;
+            pointer-events: none;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                opacity: 0; 
+                transform: translateY(0) scale(1);
+            }
+            50% { 
+                opacity: 0.6; 
+                transform: translateY(-20px) scale(1.5);
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 2rem;
+        }
+
+        .title-ascii {
+            font-family: 'Courier New', monospace;
+            font-size: 0.5rem;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+            line-height: 0.6rem;
+            margin-bottom: 1rem;
+            white-space: pre;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            color: var(--accent);
+            text-shadow: 0 0 20px rgba(0, 255, 157, 0.6);
+            margin-bottom: 0.5rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .theme-switch {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .theme-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Share Tech Mono', monospace;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .theme-btn:hover {
+            background: rgba(0, 255, 157, 0.1);
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .theme-btn.active {
+            background: rgba(0, 255, 157, 0.2);
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            animation: scan 3s infinite;
+        }
+
+        @keyframes scan {
+            0%, 100% { left: -100%; }
+            50% { left: 100%; }
+        }
+
+        .stat:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 8px 30px rgba(0, 255, 157, 0.3);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            color: var(--accent);
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 15px rgba(0, 255, 157, 0.5);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 0.5rem;
+        }
+
+        .game-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.8s ease 0.2s backwards;
+            box-shadow: 0 4px 20px rgba(0, 255, 157, 0.1);
+        }
+
+        .section-header {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-header i {
+            color: var(--accent);
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: var(--primary);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 255, 157, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 157, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 255, 157, 0.2);
+        }
+
+        .grid-container {
+            overflow-x: auto;
+            padding: 1rem;
+            margin-top: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .contribution-grid {
+            display: inline-grid;
+            grid-template-rows: repeat(7, 1fr);
+            grid-auto-flow: column;
+            gap: 4px;
+            min-width: fit-content;
+        }
+
+        .contribution-cell {
+            width: 14px;
+            height: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 157, 0.1);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .contribution-cell:hover {
+            transform: scale(1.3);
+            border-color: var(--accent);
+            z-index: 10;
+        }
+
+        .contribution-cell.active-1 {
+            background: rgba(0, 255, 157, 0.3);
+            border-color: rgba(0, 255, 157, 0.5);
+            box-shadow: 0 0 5px rgba(0, 255, 157, 0.3);
+        }
+
+        .contribution-cell.active-2 {
+            background: rgba(0, 255, 157, 0.5);
+            border-color: rgba(0, 255, 157, 0.7);
+            box-shadow: 0 0 8px rgba(0, 255, 157, 0.4);
+        }
+
+        .contribution-cell.active-3 {
+            background: rgba(0, 255, 157, 0.7);
+            border-color: rgba(0, 255, 157, 0.9);
+            box-shadow: 0 0 12px rgba(0, 255, 157, 0.5);
+        }
+
+        .contribution-cell.active-4 {
+            background: var(--accent);
+            border-color: var(--accent-light);
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.7);
+        }
+
+        .legend {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+        }
+
+        .legend-text {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .legend-square {
+            width: 14px;
+            height: 14px;
+            border-radius: 2px;
+            border: 1px solid var(--border-color);
+        }
+
+        .patterns-section {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .patterns-section h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .pattern-btn {
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            margin: 0.25rem;
+        }
+
+        .pattern-btn:hover {
+            background: rgba(0, 255, 157, 0.2);
+            border-color: var(--accent-light);
+        }
+
+        .tips {
+            background: rgba(0, 255, 157, 0.05);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-radius: 6px;
+        }
+
+        .tips h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tips ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tips li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tips li::before {
+            content: "▹";
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .contribution-cell {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .stat {
+                padding: 1rem;
+            }
+            
+            .stat-value {
+                font-size: 2rem;
+            }
+        }
+
+        .tooltip {
+            position: fixed;
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid var(--accent);
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            pointer-events: none;
+            z-index: 1000;
+            display: none;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--accent-light);
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+        }
+
+        /* Dragonfire Theme */
+        body.theme-dragonfire {
+            --primary: #1a0c1d;
+            --secondary: #3a1a2e;
+            --accent: #ff3366;
+            --accent-dark: #cc0044;
+            --accent-light: #ff6699;
+            --text: #ffe0ff;
+            --text-secondary: #c0a0b0;
+            --border-color: rgba(255, 51, 102, 0.3);
+            --card-bg: rgba(25, 10, 20, 0.8);
+        }
+
+        /* Cybervoid Theme */
+        body.theme-cybervoid {
+            --primary: #000814;
+            --secondary: #0d1b2a;
+            --accent: #00b4d8;
+            --accent-dark: #0077b6;
+            --accent-light: #90e0ef;
+            --text: #e2eafc;
+            --text-secondary: #a0b0d0;
+            --border-color: rgba(0, 180, 216, 0.3);
+            --card-bg: rgba(13, 27, 42, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="title-ascii">
+╔═══════════════════════════════════════════════════════════╗
+║   VAN_DRAGON CODEX :: CONTRIBUTION TRACKER v2.0          ║
+╚═══════════════════════════════════════════════════════════╝
+            </div>
+            <h1>🐉 CONTRIBUTION MATRIX</h1>
+            <p class="subtitle">&gt;&gt; Interactive GitHub-Style Grid System :: Click to Toggle Intensity</p>
+            
+            <div class="theme-switch">
+                <button class="theme-btn active" id="default-theme">
+                    <i class="fas fa-circle" style="color: #00ff9d;"></i> Van_Dragon
+                </button>
+                <button class="theme-btn" id="dragonfire-theme">
+                    <i class="fas fa-fire" style="color: #ff3366;"></i> Dragonfire
+                </button>
+                <button class="theme-btn" id="cybervoid-theme">
+                    <i class="fas fa-water" style="color: #00b4d8;"></i> Cybervoid
+                </button>
+            </div>
+        </header>
+
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-value" id="totalContributions">0</div>
+                <div class="stat-label"><i class="fas fa-code-branch"></i> Total Contributions</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="currentStreak">0</div>
+                <div class="stat-label"><i class="fas fa-fire"></i> Current Streak</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="longestStreak">0</div>
+                <div class="stat-label"><i class="fas fa-trophy"></i> Longest Streak</div>
+            </div>
+        </div>
+
+        <div class="game-section">
+            <h2 class="section-header">
+                <i class="fas fa-gamepad"></i>
+                CONTROLS
+            </h2>
+            
+            <div class="controls">
+                <button class="btn" onclick="game.clear()">
+                    <i class="fas fa-redo"></i> CLEAR ALL
+                </button>
+                <button class="btn btn-secondary" onclick="game.randomize()">
+                    <i class="fas fa-random"></i> RANDOMIZE
+                </button>
+                <button class="btn btn-secondary" onclick="game.fillAll()">
+                    <i class="fas fa-fill"></i> FILL ALL
+                </button>
+                <button class="btn btn-secondary" onclick="game.savePattern()">
+                    <i class="fas fa-save"></i> SAVE
+                </button>
+                <button class="btn btn-secondary" onclick="game.loadPattern()">
+                    <i class="fas fa-folder-open"></i> LOAD
+                </button>
+            </div>
+
+            <div class="grid-container">
+                <div class="contribution-grid" id="contributionGrid"></div>
+            </div>
+
+            <div class="legend">
+                <span class="legend-text">INTENSITY:</span>
+                <div class="legend-item">
+                    <div class="legend-square" style="background: rgba(255, 255, 255, 0.03);"></div>
+                    <span style="color: var(--text-secondary); font-size: 0.8rem;">0</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-square active-1"></div>
+                    <span style="color: var(--text-secondary); font-size: 0.8rem;">1</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-square active-2"></div>
+                    <span style="color: var(--text-secondary); font-size: 0.8rem;">2</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-square active-3"></div>
+                    <span style="color: var(--text-secondary); font-size: 0.8rem;">3</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-square active-4"></div>
+                    <span style="color: var(--text-secondary); font-size: 0.8rem;">4</span>
+                </div>
+            </div>
+
+            <div class="patterns-section">
+                <h3><i class="fas fa-shapes"></i> QUICK PATTERNS</h3>
+                <button class="btn pattern-btn" onclick="game.createCheckerboard()">
+                    <i class="fas fa-th"></i> Checkerboard
+                </button>
+                <button class="btn pattern-btn" onclick="game.createWave()">
+                    <i class="fas fa-wave-square"></i> Wave
+                </button>
+                <button class="btn pattern-btn" onclick="game.createDiagonal()">
+                    <i class="fas fa-slash"></i> Diagonal
+                </button>
+                <button class="btn pattern-btn" onclick="game.createHeart()">
+                    <i class="fas fa-heart"></i> Heart
+                </button>
+                <button class="btn pattern-btn" onclick="game.createSmile()">
+                    <i class="fas fa-smile"></i> Smile
+                </button>
+            </div>
+
+            <div class="tips">
+                <h3><i class="fas fa-lightbulb"></i> SYSTEM INFO</h3>
+                <ul>
+                    <li>Click any square to cycle through 5 intensity levels (0→1→2→3→4→0)</li>
+                    <li>Hover over squares to see coordinates and current level</li>
+                    <li>Use preset patterns for instant cool designs</li>
+                    <li>Keyboard shortcuts: C (clear), R (randomize), F (fill all)</li>
+                    <li>Your patterns auto-save in browser storage</li>
+                    <li>Switch themes using the buttons above</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2024 Van_Dragon Codex • Built with 💚 and ⚡</p>
+            <p style="margin-top: 0.5rem;">
+                <a href="https://github.com" target="_blank">
+                    <i class="fas fa-arrow-left"></i> Back to GitHub Profile
+                </a>
+            </p>
+        </footer>
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // Dragon Seeds Animation
+        function createDragonSeeds() {
+            for (let i = 0; i < 15; i++) {
+                const seed = document.createElement('div');
+                seed.className = 'dragon-seed';
+                seed.style.left = `${Math.random() * 100}%`;
+                seed.style.top = `${Math.random() * 100}%`;
+                seed.style.animationDelay = `${Math.random() * 3}s`;
+                seed.style.animationDuration = `${3 + Math.random() * 2}s`;
+                document.body.appendChild(seed);
+            }
+        }
+
+        // Theme Switching
+        document.querySelectorAll('.theme-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                document.body.classList.remove('theme-dragonfire', 'theme-cybervoid');
+                
+                if (this.id === 'dragonfire-theme') {
+                    document.body.classList.add('theme-dragonfire');
+                } else if (this.id === 'cybervoid-theme') {
+                    document.body.classList.add('theme-cybervoid');
+                }
+            });
+        });
+
+        class ContributionGame {
+            constructor() {
+                this.weeks = 52;
+                this.daysPerWeek = 7;
+                this.grid = [];
+                this.stats = {
+                    total: 0,
+                    currentStreak: 0,
+                    longestStreak: 0
+                };
+                
+                this.init();
+                this.loadFromStorage();
+                this.setupKeyboardControls();
+            }
+
+            init() {
+                const gridElement = document.getElementById('contributionGrid');
+                gridElement.innerHTML = '';
+
+                for (let week = 0; week < this.weeks; week++) {
+                    this.grid[week] = [];
+                    for (let day = 0; day < this.daysPerWeek; day++) {
+                        const cell = document.createElement('div');
+                        cell.className = 'contribution-cell';
+                        cell.dataset.week = week;
+                        cell.dataset.day = day;
+                        cell.dataset.level = 0;
+                        
+                        cell.addEventListener('click', (e) => this.toggleCell(e.target));
+                        cell.addEventListener('mouseenter', (e) => this.showTooltip(e));
+                        cell.addEventListener('mouseleave', () => this.hideTooltip());
+                        
+                        gridElement.appendChild(cell);
+                        this.grid[week][day] = cell;
+                    }
+                }
+            }
+
+            toggleCell(cell) {
+                const currentLevel = parseInt(cell.dataset.level);
+                const newLevel = (currentLevel + 1) % 5;
+                
+                cell.dataset.level = newLevel;
+                cell.className = 'contribution-cell';
+                
+                if (newLevel > 0) {
+                    cell.classList.add(`active-${newLevel}`);
+                }
+                
+                this.updateStats();
+                this.saveToStorage();
+            }
+
+            updateStats() {
+                let total = 0;
+                let currentStreak = 0;
+                let longestStreak = 0;
+                let tempStreak = 0;
+
+                for (let week = 0; week < this.weeks; week++) {
+                    for (let day = 0; day < this.daysPerWeek; day++) {
+                        const level = parseInt(this.grid[week][day].dataset.level);
+                        if (level > 0) {
+                            total++;
+                            tempStreak++;
+                            if (tempStreak > longestStreak) {
+                                longestStreak = tempStreak;
+                            }
+                        } else {
+                            tempStreak = 0;
+                        }
+                    }
+                }
+
+                currentStreak = tempStreak;
+
+                document.getElementById('totalContributions').textContent = total;
+                document.getElementById('currentStreak').textContent = currentStreak;
+                document.getElementById('longestStreak').textContent = longestStreak;
+            }
+
+            clear() {
+                for (let week = 0; week < this.weeks; week++) {
+                    for (let day = 0; day < this.daysPerWeek; day++) {
+                        this.grid[week][day].dataset.level = 0;
+                        this.grid[week][day].className = 'contribution-cell';
+                    }
+                }
+                this.updateStats();
+                this.saveToStorage();
+            }
+
+            randomize() {
+                for (let week = 0; week < this.weeks; week++) {
+                    for (let day = 0; day < this.daysPerWeek; day++) {
+                        const level = Math.floor(Math.random() * 5);
+                        this.grid[week][day].dataset.level = level;
+                        this.grid[week][day].className = 'contribution-cell';
+                        if (level > 0) {
+                            this.grid[week][day].classList.add(`active-${level}`);
+                        }
+                    }
+                }
+                this.updateStats();
+                this.saveToStorage();
+            }
+
+            fillAll() {
+                for (let week = 0; week < this.weeks; week++) {
+                    for (let day = 0; day < this.daysPerWeek; day++) {
+                        this.grid[week][day].dataset.level = 4;
+                        this.grid[week][day].className = 'contribution-cell active-4';
+                    }
+                }
+                this.updateStats();
+                this.saveToStorage();
+            }
+
+            createCheckerboard() {
+                for (let week = 0; week < this.weeks; week++) {
+                    for (let day = 0; day < this.daysPerWeek; day++) {
+                        const level = (week + day) % 2 === 0 ? 4 : 0;
+                        this.grid[week][day].dataset.level = level;
+                        this.grid[week][day].className = 'contribution-cell';
+                        if (level > 0) {
+                            this.grid[week][day].classList.add(`active-${level}`);
+                        }
+                    }
+                }
+                this.updateStats();
+                this.saveToStorage();
+            }
+
+            createWave() {
+                for (let week = 0; week < this.weeks; week++) {
+                    for (let day = 0; day < this.daysPerWeek; day++) {
+                        const level = Math.floor(Math.abs(Math.sin(week * 0.3) * Math.cos(day * 0.8)) * 4) + 1;
+                        this.grid[week][day].dataset.level = level;
+                        this.grid[week][day].className = 'contribution-cell';
+                        if (level > 0) {
+                            this.grid[week][day].classList.add(`active-${level}`);
+                        }
+                    }
+                }
+                this.updateStats();
+                this.saveToStorage();
+            }
+
+            createDiagonal() {
+                this.clear();
+                for (let week = 0; week < this.weeks; week++) {
+                    const day = (week * 2) % this.daysPerWeek;
+                    if (day < this.daysPerWeek) {
+                        this.grid[week][day].dataset.level = 4;
+                        this.grid[week][day].className = 'contribution-cell active-4';
+                    }
+                }
+                this.updateStats();
+                this.saveToStorage();
+            }
+
+            createHeart() {
+                this.clear();
+                const heartPattern = [
+                    [0,1,1,0,1,1,0],
+                    [1,1,1,1,1,1,1],
+                    [1,1,1,1,1,1,1],
+                    [0,1,1,1,1,1,0],
+                    [0,0,1,1,1,0,0],
+                    [0,0,0,1,0,0,0]
+                ];
+                
+                const startWeek = Math.floor(this.weeks / 2) - 3;
+                for (let i = 0; i < heartPattern.length && startWeek + i < this.weeks; i++) {
+                    for (let j = 0; j < heartPattern[i].length; j++) {
+                        if (heartPattern[i][j] === 1) {
+                            this.grid[startWeek + i][j].dataset.level = 4;
+                            this.grid[startWeek + i][j].className = 'contribution-cell active-4';
+                        }
+                    }
+                }
+                this.updateStats();
+                this.saveToStorage();
+            }
+
+            createSmile() {
+                this.clear();
+                const smilePattern = [
+                    [0,1,1,1,1,1,0],
+                    [1,0,0,0,0,0,1],
+                    [0,1,0,0,0,1,0],
+                    [0,0,0,0,0,0,0],
+                    [0,1,0,0,0,1,0],
+                    [0,0,1,1,1,0,0]
+                ];
+                
+                const startWeek = Math.floor(this.weeks / 2) - 3;
+                for (let i = 0; i < smilePattern.length && startWeek + i < this.weeks; i++) {
+                    for (let j = 0; j < smilePattern[i].length; j++) {
+                        if (smilePattern[i][j] === 1) {
+                            this.grid[startWeek + i][j].dataset.level = 3;
+                            this.grid[startWeek + i][j].className = 'contribution-cell active-3';
+                        }
+                    }
+                }
+                this.updateStats();
+                this.saveToStorage();
+            }
+
+            savePattern() {
+                const pattern = [];
+                for (let week = 0; week < this.weeks; week++) {
+                    pattern[week] = [];
+                    for (let day = 0; day < this.daysPerWeek; day++) {
+                        pattern[week][day] = parseInt(this.grid[week][day].dataset.level);
+                    }
+                }
+                localStorage.setItem('savedPattern', JSON.stringify(pattern));
+                alert('✅ Pattern saved successfully!');
+            }
+
+            loadPattern() {
+                const saved = localStorage.getItem('savedPattern');
+                if (saved) {
+                    const pattern = JSON.parse(saved);
+                    for (let week = 0; week < this.weeks && week < pattern.length; week++) {
+                        for (let day = 0; day < this.daysPerWeek && day < pattern[week].length; day++) {
+                            const level = pattern[week][day];
+                            this.grid[week][day].dataset.level = level;
+                            this.grid[week][day].className = 'contribution-cell';
+                            if (level > 0) {
+                                this.grid[week][day].classList.add(`active-${level}`);
+                            }
+                        }
+                    }
+                    this.updateStats();
+                    alert('📂 Pattern loaded successfully!');
+                } else {
+                    alert('❌ No saved pattern found!');
+                }
+            }
+
+            saveToStorage() {
+                const pattern = [];
+                for (let week = 0; week < this.weeks; week++) {
+                    pattern[week] = [];
+                    for (let day = 0; day < this.daysPerWeek; day++) {
+                        pattern[week][day] = parseInt(this.grid[week][day].dataset.level);
+                    }
+                }
+                localStorage.setItem('currentPattern', JSON.stringify(pattern));
+            }
+
+            loadFromStorage() {
+                const saved = localStorage.getItem('currentPattern');
+                if (saved) {
+                    const pattern = JSON.parse(saved);
+                    for (let week = 0; week < this.weeks && week < pattern.length; week++) {
+                        for (let day = 0; day < this.daysPerWeek && day < pattern[week].length; day++) {
+                            const level = pattern[week][day];
+                            this.grid[week][day].dataset.level = level;
+                            this.grid[week][day].className = 'contribution-cell';
+                            if (level > 0) {
+                                this.grid[week][day].classList.add(`active-${level}`);
+                            }
+                        }
+                    }
+                    this.updateStats();
+                }
+            }
+
+            setupKeyboardControls() {
+                document.addEventListener('keydown', (e) => {
+                    switch(e.key.toLowerCase()) {
+                        case 'c':
+                            this.clear();
+                            break;
+                        case 'r':
+                            this.randomize();
+                            break;
+                        case 'f':
+                            this.fillAll();
+                            break;
+                    }
+                });
+            }
+
+            showTooltip(e) {
+                const tooltip = document.getElementById('tooltip');
+                const level = e.target.dataset.level;
+                const week = e.target.dataset.week;
+                const day = e.target.dataset.day;
+                
+                const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                tooltip.textContent = `${days[day]} | Week ${parseInt(week) + 1} | Level: ${level}`;
+                tooltip.style.display = 'block';
+                tooltip.style.left = e.pageX + 15 + 'px';
+                tooltip.style.top = e.pageY + 15 + 'px';
+            }
+
+            hideTooltip() {
+                const tooltip = document.getElementById('tooltip');
+                tooltip.style.display = 'none';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createDragonSeeds();
+            window.game = new ContributionGame();
+        });
+    </script>
+</body>
+</html>
