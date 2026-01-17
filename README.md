@@ -14,7 +14,27 @@
 ```
 
 <div align="center">
-# 🐉 ENYANWUMA DANIEL IKECHUKWU
+<h3 align="center">
+  <span style="color: #00ff9d">###</span> 
+  <span style="
+    display: inline-block;
+    animation: dragonBeat 1.5s infinite;
+  ">🐉</span> 
+  <span style="
+    font-weight: bold;
+    color: #00ff9d;
+    text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+  ">ENYANWUMA</span> 
+  <span style="color: #ff00cc">DANIEL</span> 
+  <span style="color: #9d4edd">IKECHUKWU</span>
+</h3>
+
+<style>
+  @keyframes dragonBeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+  }
+</style>
 
 ### `SOFTWARE ENGINEER` × `3D ARTIST` × `DIGITAL CREATOR`
 
