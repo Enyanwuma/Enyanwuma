@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Profile | Digital Creator</title>
-    <link rel="icon" href="profile.ico" type="image/x-icon">
+      <link rel="icon" href="profile.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
@@ -772,32 +772,32 @@
                         <span>Get In Touch</span>
                     </h2>
                     
-                    <form class="contact-form" id="contact-form">
+                    <form class="contact-form" id="contact-form" action="https://formspree.io/f/xreeezoo" method="POST">
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label" for="name">Your Name</label>
-                                <input type="text" id="name" class="form-input" placeholder="Enter your name" required>
+                                <input type="text" name="name" id="name" class="form-input" placeholder="Enter your name" required>
                             </div>
                             
                             <div class="form-group">
                                 <label class="form-label" for="email">Email Address</label>
-                                <input type="email" id="email" class="form-input" placeholder="Your email for reply" required>
+                                <input type="email" name="email" id="email" class="form-input" placeholder="Your email for reply" required>
                             </div>
                         </div>
                         
                         <div class="form-group">
                             <label class="form-label" for="subject">Subject</label>
-                            <input type="text" id="subject" class="form-input" placeholder="What is this about?" required>
+                            <input type="text" name="subject" id="subject" class="form-input" placeholder="What is this about?" required>
                         </div>
                         
                         <div class="form-group">
                             <label class="form-label" for="message">Message</label>
-                            <textarea id="message" class="form-textarea" placeholder="Your message here..." required></textarea>
+                            <textarea name="message" id="message" class="form-textarea" placeholder="Your message here..." required></textarea>
                         </div>
                         
                         <div class="form-group">
                             <label class="form-label" for="interest">Interest Area</label>
-                            <select id="interest" class="form-input">
+                            <select name="interest" id="interest" class="form-input">
                                 <option value="">Select an option</option>
                                 <option value="collab">Collaboration</option>
                                 <option value="work">Work Inquiry</option>
@@ -853,11 +853,10 @@
             });
         });
         
-        // Form Submission
+        // Form Submission with Formspree
         document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you! Your message has been sent. I\'ll get back to you soon.');
-            this.reset();
+            // Let the form submit to Formspree
+            // The form will naturally redirect or show success
         });
         
         // Dragon Seed Animation
@@ -879,5 +878,4 @@
         });
     </script>
 </body>
-
 </html>
