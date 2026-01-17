@@ -20,9 +20,9 @@
 
 <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=700&size=24&duration=3000&pause=1000&color=00FF9D&center=true&vCenter=true&width=700&lines=Building+Digital+Experiences;Crafting+3D+Worlds+in+Blender;Engineering+Scalable+Solutions;Creating+Visual+Stories" alt="Typing SVG" />
 
-[![Portfolio](https://img.shields.io/badge/🌐_PORTFOLIO-00FF9D?style=for-the-badge&logo=googlechrome&logoColor=0c0c1d)](https://yourportfolio.com)
-[![Email](https://img.shields.io/badge/📧_CONTACT-00FF9D?style=for-the-badge&logo=gmail&logoColor=0c0c1d)](mailto:your.email@example.com)
-[![LinkedIn](https://img.shields.io/badge/💼_LINKEDIN-00FF9D?style=for-the-badge&logo=linkedin&logoColor=0c0c1d)](https://linkedin.com/in/yourprofile)
+[![Portfolio](https://img.shields.io/badge/🌐_PORTFOLIO-00FF9D?style=for-the-badge&logo=googlechrome&logoColor=0c0c1d)](https://enyanwuma.github.io/Enyanwuma/)
+[![Email](https://img.shields.io/badge/📧_CONTACT-00FF9D?style=for-the-badge&logo=gmail&logoColor=0c0c1d)](mailto:your.enyanwumadaniel@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/💼_LINKEDIN-00FF9D?style=for-the-badge&logo=linkedin&logoColor=0c0c1d)](www.linkedin.com/in/daniel-enyanwuma-637567392)
 
 </div>
 
