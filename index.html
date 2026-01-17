@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Profile | Digital Creator</title>
-      <link rel="icon" href="profile.ico" type="image/x-icon">
+    <link rel="icon" href="profile.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+    <script src="file.js"></script>
     <style>
         :root {
             --primary: #0c0c1d;
@@ -22,7 +26,7 @@
             --card-bg: rgba(10, 10, 25, 0.7);
             --border-color: rgba(0, 255, 157, 0.2);
         }
-        
+
         .theme-dragonfire {
             --primary: #1a0c1d;
             --secondary: #3a1a2e;
@@ -35,7 +39,7 @@
             --border-color: rgba(255, 51, 102, 0.3);
             --card-bg: rgba(25, 10, 20, 0.8);
         }
-        
+
         .theme-cybervoid {
             --primary: #000814;
             --secondary: #0d1b2a;
@@ -48,32 +52,32 @@
             --border-color: rgba(0, 180, 216, 0.3);
             --card-bg: rgba(13, 27, 42, 0.8);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             background: var(--primary);
             color: var(--text);
             font-family: 'Share Tech Mono', monospace;
             line-height: 1.6;
             overflow-x: hidden;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 10% 20%, rgba(26, 26, 58, 0.3) 0%, transparent 20%),
                 radial-gradient(circle at 90% 80%, rgba(26, 26, 58, 0.3) 0%, transparent 20%),
                 linear-gradient(to bottom, var(--primary), #000);
             transition: background-color 0.5s, color 0.5s;
         }
-        
+
         .profile-container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
-        
+
         .profile-header {
             display: flex;
             justify-content: space-between;
@@ -83,7 +87,7 @@
             margin-bottom: 40px;
             flex-wrap: wrap;
         }
-        
+
         .profile-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 2.8rem;
@@ -91,19 +95,19 @@
             text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
             margin-bottom: 10px;
         }
-        
+
         .profile-subtitle {
             color: var(--text-secondary);
             font-size: 1.2rem;
             max-width: 600px;
         }
-        
+
         .theme-controls {
             display: flex;
             gap: 15px;
             margin-top: 15px;
         }
-        
+
         .theme-btn {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -117,17 +121,17 @@
             align-items: center;
             gap: 8px;
         }
-        
+
         .theme-btn:hover {
             background: rgba(0, 255, 157, 0.1);
             transform: translateY(-2px);
         }
-        
+
         .theme-btn.active {
             background: rgba(0, 255, 157, 0.2);
             border-color: var(--accent);
         }
-        
+
         .layout-toggle {
             display: flex;
             background: var(--card-bg);
@@ -136,7 +140,7 @@
             overflow: hidden;
             margin-top: 15px;
         }
-        
+
         .layout-btn {
             padding: 10px 15px;
             background: transparent;
@@ -145,21 +149,21 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        
+
         .layout-btn:hover {
             background: rgba(0, 255, 157, 0.1);
         }
-        
+
         .layout-btn.active {
             background: rgba(0, 255, 157, 0.2);
         }
-        
+
         .profile-content {
             display: grid;
             grid-template-columns: 300px 1fr;
             gap: 30px;
         }
-        
+
         .profile-sidebar {
             background: var(--card-bg);
             border-radius: 8px;
@@ -169,12 +173,12 @@
             position: sticky;
             top: 20px;
         }
-        
+
         .avatar-container {
             text-align: center;
             margin-bottom: 25px;
         }
-        
+
         .avatar {
             width: 150px;
             height: 150px;
@@ -187,53 +191,53 @@
             justify-content: center;
             font-size: 3.5rem;
         }
-        
+
         .user-name {
             font-family: 'Orbitron', sans-serif;
             color: var(--accent);
             font-size: 1.5rem;
             margin-bottom: 5px;
         }
-        
+
         .user-title {
             color: var(--text-secondary);
             font-size: 0.9rem;
             margin-bottom: 20px;
         }
-        
+
         .stats {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
             margin-bottom: 25px;
         }
-        
+
         .stat-item {
             text-align: center;
             padding: 10px;
             background: rgba(26, 26, 58, 0.3);
             border-radius: 4px;
         }
-        
+
         .stat-value {
             font-family: 'Orbitron', sans-serif;
             color: var(--accent);
             font-size: 1.5rem;
             margin-bottom: 5px;
         }
-        
+
         .stat-label {
             font-size: 0.8rem;
             color: var(--text-secondary);
         }
-        
+
         .social-links {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin-top: 20px;
         }
-        
+
         .social-link {
             width: 40px;
             height: 40px;
@@ -247,25 +251,25 @@
             transition: all 0.3s;
             border: 1px solid var(--border-color);
         }
-        
+
         .social-link:hover {
             background: rgba(0, 255, 157, 0.2);
             transform: translateY(-3px);
         }
-        
+
         .profile-main {
             display: flex;
             flex-direction: column;
             gap: 40px;
         }
-        
+
         .profile-section {
             background: var(--card-bg);
             border-radius: 8px;
             padding: 30px;
             border: 1px solid var(--border-color);
         }
-        
+
         .section-title {
             font-family: 'Orbitron', sans-serif;
             color: var(--accent);
@@ -276,19 +280,19 @@
             align-items: center;
             justify-content: space-between;
         }
-        
+
         .works-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
         }
-        
+
         .works-list {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
-        
+
         .work-card {
             background: rgba(20, 20, 40, 0.5);
             border-radius: 6px;
@@ -296,23 +300,23 @@
             transition: all 0.3s;
             border: 1px solid var(--border-color);
         }
-        
+
         .work-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             border-color: var(--accent);
         }
-        
+
         .work-card.grid-view {
             height: 100%;
         }
-        
+
         .work-card.list-view {
             display: flex;
             flex-direction: row;
             align-items: center;
         }
-        
+
         .work-image {
             height: 180px;
             background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
@@ -322,37 +326,37 @@
             font-size: 3rem;
             color: var(--accent);
         }
-        
+
         .list-view .work-image {
             height: 120px;
             width: 200px;
             min-width: 200px;
         }
-        
+
         .work-content {
             padding: 20px;
         }
-        
+
         .work-title {
             font-family: 'Orbitron', sans-serif;
             color: var(--accent);
             margin-bottom: 10px;
             font-size: 1.2rem;
         }
-        
+
         .work-desc {
             color: var(--text-secondary);
             font-size: 0.9rem;
             margin-bottom: 15px;
             line-height: 1.5;
         }
-        
+
         .work-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
         }
-        
+
         .work-tag {
             background: rgba(0, 255, 157, 0.1);
             color: var(--accent-light);
@@ -360,13 +364,13 @@
             border-radius: 12px;
             font-size: 0.75rem;
         }
-        
+
         .videos-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 25px;
         }
-        
+
         .video-card {
             background: rgba(20, 20, 40, 0.5);
             border-radius: 6px;
@@ -374,12 +378,12 @@
             transition: all 0.3s;
             border: 1px solid var(--border-color);
         }
-        
+
         .video-card:hover {
             transform: translateY(-5px);
             border-color: var(--accent);
         }
-        
+
         .video-thumbnail {
             height: 180px;
             background: linear-gradient(135deg, var(--secondary) 0%, var(--van-dragon) 100%);
@@ -390,7 +394,7 @@
             color: white;
             position: relative;
         }
-        
+
         .play-btn {
             position: absolute;
             width: 60px;
@@ -403,18 +407,18 @@
             font-size: 1.5rem;
             color: var(--accent);
         }
-        
+
         .video-content {
             padding: 20px;
         }
-        
+
         .video-title {
             font-family: 'Orbitron', sans-serif;
             color: var(--accent);
             margin-bottom: 10px;
             font-size: 1.2rem;
         }
-        
+
         .video-meta {
             display: flex;
             justify-content: space-between;
@@ -422,25 +426,26 @@
             font-size: 0.85rem;
             margin-bottom: 15px;
         }
-        
+
         .contact-form {
             display: grid;
             gap: 20px;
         }
-        
+
         .form-group {
             display: flex;
             flex-direction: column;
         }
-        
+
         .form-label {
             margin-bottom: 8px;
             color: var(--accent);
             font-family: 'Orbitron', sans-serif;
             font-size: 0.9rem;
         }
-        
-        .form-input, .form-textarea {
+
+        .form-input,
+        .form-textarea {
             background: rgba(20, 20, 40, 0.7);
             border: 1px solid var(--border-color);
             border-radius: 4px;
@@ -450,24 +455,25 @@
             font-size: 1rem;
             transition: all 0.3s;
         }
-        
-        .form-input:focus, .form-textarea:focus {
+
+        .form-input:focus,
+        .form-textarea:focus {
             outline: none;
             border-color: var(--accent);
             box-shadow: 0 0 10px rgba(0, 255, 157, 0.2);
         }
-        
+
         .form-textarea {
             min-height: 150px;
             resize: vertical;
         }
-        
+
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
-        
+
         .submit-btn {
             background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
             color: var(--primary);
@@ -480,12 +486,12 @@
             transition: all 0.3s;
             margin-top: 10px;
         }
-        
+
         .submit-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
         }
-        
+
         .profile-footer {
             text-align: center;
             padding: 30px 0;
@@ -493,11 +499,11 @@
             border-top: 1px solid var(--border-color);
             color: var(--text-secondary);
         }
-        
+
         .copyright {
             margin-bottom: 10px;
         }
-        
+
         .dragon-seed {
             position: fixed;
             width: 8px;
@@ -509,84 +515,173 @@
             z-index: 100;
             animation: dragonSeed 3s infinite;
         }
-        
+
         @keyframes dragonSeed {
-            0% { transform: translate(0, 0); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translate(100px, 100px); opacity: 0; }
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(100px, 100px);
+                opacity: 0;
+            }
         }
-        
+
         ::-webkit-scrollbar {
             width: 8px;
         }
-        
+
         ::-webkit-scrollbar-track {
             background: rgba(10, 10, 25, 0.5);
         }
-        
+
         ::-webkit-scrollbar-thumb {
             background: var(--scrollbar);
             border-radius: 4px;
         }
-        
+
         ::-webkit-scrollbar-thumb:hover {
             background: var(--accent);
         }
-        
+
+        /* File Upload Styles */
+        .file-upload-area {
+            margin-top: 5px;
+        }
+
+        .file-upload-box {
+            background: rgba(20, 20, 40, 0.3);
+            border: 2px dashed var(--border-color);
+            border-radius: 6px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-upload-box:hover {
+            background: rgba(0, 255, 157, 0.05);
+            border-color: var(--accent);
+        }
+
+        .file-upload-box.dragover {
+            background: rgba(0, 255, 157, 0.1);
+            border-color: var(--accent);
+            transform: scale(1.02);
+        }
+
+        .file-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(26, 26, 58, 0.5);
+            border-radius: 4px;
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .file-icon {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .file-name {
+            color: var(--text);
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+
+        .file-size {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .file-remove {
+            background: none;
+            border: none;
+            color: var(--warning);
+            cursor: pointer;
+            padding: 5px;
+            transition: all 0.2s;
+        }
+
+        .file-remove:hover {
+            transform: scale(1.2);
+        }
+
         @media (max-width: 1024px) {
             .profile-content {
                 grid-template-columns: 1fr;
             }
-            
+
             .profile-sidebar {
                 position: static;
             }
         }
-        
+
         @media (max-width: 768px) {
             .profile-header {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            
+
             .theme-controls {
                 width: 100%;
                 justify-content: center;
             }
-            
+
             .form-row {
                 grid-template-columns: 1fr;
             }
-            
+
             .works-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .videos-container {
                 grid-template-columns: 1fr;
             }
-            
+
             .profile-title {
                 font-size: 2rem;
             }
         }
-        
+
         @media (max-width: 480px) {
             .work-card.list-view {
                 flex-direction: column;
             }
-            
+
             .list-view .work-image {
                 width: 100%;
                 min-width: 100%;
             }
-            
+
             .profile-section {
                 padding: 20px;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="profile-container">
         <header class="profile-header">
@@ -594,7 +689,7 @@
                 <!-- EDIT YOUR NAME/TITLE HERE -->
                 <h1 class="profile-title">ENYANWUMA DANIEL IKECHUKWU</h1>
                 <p class="profile-subtitle">Funny how thw world works🌺</p>
-                
+
                 <div class="theme-controls">
                     <button class="theme-btn active" id="default-theme">
                         <i class="fas fa-code"></i> Default
@@ -605,7 +700,7 @@
                     <button class="theme-btn" id="cybervoid-theme">
                         <i class="fas fa-atom"></i> Cybervoid
                     </button>
-                    
+
                     <div class="layout-toggle">
                         <button class="layout-btn active" id="grid-layout">
                             <i class="fas fa-th-large"></i>
@@ -617,18 +712,20 @@
                 </div>
             </div>
         </header>
-        
+
         <div class="profile-content">
             <aside class="profile-sidebar">
                 <div class="avatar-container">
                     <!-- EDIT YOUR AVATAR/IMAGE HERE -->
                     <div class="avatar">
-                        <img src="images/your-image.JPEG" alt="Your Name" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"> <!-- Change icon or replace with <img> -->
+                        <img src="images/your-image.JPEG" alt="Your Name"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+                        <!-- Change icon or replace with <img> -->
                     </div>
                     <h2 class="user-name">Daniel</h2>
                     <p class="user-title">Bio-medical Engineer/software developer</p>
                 </div>
-                
+
                 <div class="stats">
                     <!-- EDIT YOUR STATS HERE -->
                     <div class="stat-item">
@@ -648,12 +745,13 @@
                         <div class="stat-label">Ideas</div>
                     </div>
                 </div>
-                
+
                 <!-- EDIT YOUR BIO HERE -->
                 <p style="margin-bottom: 20px; font-size: 0.9rem; color: var(--text-secondary);">
-                    "Perceiving reality as nested functions and variables. My works manifest through conceptual bracketing and temporal debugging."
+                    "Perceiving reality as nested functions and variables. My works manifest through conceptual
+                    bracketing and temporal debugging."
                 </p>
-                
+
                 <div class="social-links">
                     <!-- EDIT YOUR SOCIAL LINKS HERE -->
                     <a href="#" class="social-link"><i class="fab fa-github"></i></a>
@@ -663,23 +761,26 @@
                     <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
                 </div>
             </aside>
-            
+
             <main class="profile-main">
                 <section class="profile-section">
                     <h2 class="section-title">
                         <span><i class="fas fa-cube"></i> MY WORKS</span>
                         <span class="works-count">Featured Projects</span>
                     </h2>
-                    
+
                     <div class="works-grid" id="works-container">
                         <!-- EDIT YOUR WORK ITEMS HERE -->
                         <div class="work-card grid-view">
                             <div class="work-image">
-                                <img src="images/pt.png" alt="Your Name" style="width:100%;height:100%;object-fit:cover;"> <!-- Change icon per project -->
+                                <img src="images/pt.png" alt="Your Name"
+                                    style="width:100%;height:100%;object-fit:cover;"> <!-- Change icon per project -->
                             </div>
                             <div class="work-content">
                                 <h3 class="work-title">Graphics Design</h3>
-                                <p class="work-desc">Graphic design blends creativity with strategy, using tools like Adobe Illustrator, Photoshop, or Figma to produce visuals that inform, persuade, and engage audiences in everyday life.</p>
+                                <p class="work-desc">Graphic design blends creativity with strategy, using tools like
+                                    Adobe Illustrator, Photoshop, or Figma to produce visuals that inform, persuade, and
+                                    engage audiences in everyday life.</p>
                                 <div class="work-tags">
                                     <span class="work-tag">Web Design</span>
                                     <span class="work-tag">UI/UX</span>
@@ -687,14 +788,16 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="work-card grid-view">
                             <div class="work-image">
-                               <img src="images/pr.png" alt="Your Name" style="width:100%;height:100%;object-fit:cover;">
+                                <img src="images/pr.png" alt="Your Name"
+                                    style="width:100%;height:100%;object-fit:cover;">
                             </div>
                             <div class="work-content">
                                 <h3 class="work-title">Blender</h3>
-                                <p class="work-desc">Modeling: Blockout → refine topology → UV unwrap → LODs for game assets.</p>
+                                <p class="work-desc">Modeling: Blockout → refine topology → UV unwrap → LODs for game
+                                    assets.</p>
                                 <div class="work-tags">
                                     <span class="work-tag">Blender 3d modeling</span>
                                     <span class="work-tag">scripting</span>
@@ -702,16 +805,19 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="work-card grid-view">
                             <div class="work-image">
-                               <img src="images/c.webp" alt="Your Name" style="width:100%;height:100%;object-fit:cover;">
+                                <img src="images/c.webp" alt="Your Name"
+                                    style="width:100%;height:100%;object-fit:cover;">
                             </div>
                             <div class="work-content">
                                 <h3 class="work-title">Capcut</h3>
-                                <p class="work-desc">Graphic design blends creativity with strategy, using tools like Adobe Illustrator, Photoshop, or Figma to produce visuals that inform, persuade, and engage audiences in everyday life.
+                                <p class="work-desc">Graphic design blends creativity with strategy, using tools like
+                                    Adobe Illustrator, Photoshop, or Figma to produce visuals that inform, persuade, and
+                                    engage audiences in everyday life.
 
-</p>
+                                </p>
                                 <div class="work-tags">
                                     <span class="work-tag">content creator</span>
                                     <span class="work-tag">social media</span>
@@ -721,42 +827,75 @@
                         </div>
                     </div>
                 </section>
-                
+
                 <section class="profile-section">
                     <h2 class="section-title">
                         <span><i class="fas fa-play-circle"></i> VIDEO CONTENT</span>
                         <span class="video-count">My Videos</span>
                     </h2>
-                    
+
                     <div class="videos-container">
                         <!-- EDIT YOUR VIDEO ITEMS HERE -->
                         <div class="video-card">
                             <div class="video-thumbnail">
-                                <i class="fas fa-video"></i> <!-- You can replace with actual thumbnail images -->
+                                <img src="images/1.png" alt="Video Title"
+                                    style="width:100%;height:100%;object-fit:cover;">
                                 <div class="play-btn">
                                     <i class="fas fa-play"></i>
                                 </div>
                             </div>
                             <div class="video-content">
-                                <h3 class="video-title">Video Title 1</h3>
-                                <p class="work-desc">Description of your video content. What is it about? Tutorial? Showcase? Vlog?</p>
+                                <h3 class="video-title">🎹 Redefining the Classics: When Tradition Meets Tomorrow.</h3>
+                                <p class="work-desc">We often hear that "everything has already been designed." But
+                                    looking at this concept, it’s clear we are just scratching the surface of what's
+                                    possible.
+                                    "If you were asked to design, how would you do it?"
+                                    This image isn't just a 3D model of a piano; it’s a visual representation of the
+                                    creative process itself. It takes an instrument defined by centuries of acoustic
+                                    tradition and reimagines it through the lens of: 🔹 Transparency (Visualizing the
+                                    internal mechanics) 🔹 Light (Using energy instead of mass) 🔹 Environment (How the
+                                    object interacts with a futuristic space)
+                                    Whether you are using hashtag#Blender, generic sketching, or AI tools, the challenge
+                                    remains the same: How do you honor the past while designing for the future?
+                                    I’m curious to hear from my network: When you get a completely open design brief, do
+                                    you start with the function (how it works) or the form (how it looks)?</p>
                                 <div class="video-meta">
                                     <span><i class="far fa-clock"></i> 15:42</span>
                                     <span><i class="far fa-eye"></i> 1.2K views</span>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="video-card">
                             <div class="video-thumbnail">
-                                <i class="fas fa-film"></i>
+                                <img src="images/2.png" alt="Video Title"
+                                    style="width:100%;height:100%;object-fit:cover;">
                                 <div class="play-btn">
                                     <i class="fas fa-play"></i>
                                 </div>
                             </div>
                             <div class="video-content">
-                                <h3 class="video-title">Video Title 2</h3>
-                                <p class="work-desc">Another video description. You can add more videos by copying this structure.</p>
+                                <h3 class="video-title">Golden Spike Generator: Cinematic Geological Visualizations for
+                                    Blender</h3>
+                                <p class="work-desc">Transform Scientific Concepts into Breathtaking Cinematic Scenes -
+                                    Perfect for ArtStation, UE5 Demos & Scientific Visualization
+                                    "Where Geology Meets Hollywood: Create Hyperdetailed Golden Spike Scenes in One
+                                    Click"
+                                    🎬 Create Jaw-Dropping Cinematic Geology Scenes in Seconds!
+
+                                    Welcome to the Golden Spike Marker - the ultimate Blender addon that bridges the gap
+                                    between scientific accuracy and stunning visual storytelling. Whether you're
+                                    creating for ArtStation portfolios, Unreal Engine 5 demos, scientific
+                                    visualizations, or Hollywood-style renders, this addon gives you the power to
+                                    visualize geological epochs with cinematic quality.
+
+                                    🔥 TRENDING ON ARTSTATION & BLENDER COMMUNITIES:
+
+                                    Our addon creates scenes that capture exactly what's trending right now:
+
+                                    Cinematic hyperdetailed shots with volumetric lighting
+
+                                    Glowing golden crystalline spikes in geological layers.</p>
                                 <div class="video-meta">
                                     <span><i class="far fa-clock"></i> 22:18</span>
                                     <span><i class="far fa-eye"></i> 3.4K views</span>
@@ -765,36 +904,41 @@
                         </div>
                     </div>
                 </section>
-                
+
                 <section class="profile-section">
                     <h2 class="section-title">
                         <span><i class="fas fa-terminal"></i> CONTACT ME</span>
                         <span>Get In Touch</span>
                     </h2>
-                    
-                    <form class="contact-form" id="contact-form" action="https://formspree.io/f/xreeezoo" method="POST">
+
+                    <form class="contact-form" id="contact-form" action="https://formspree.io/f/xreeezoo" method="POST"
+                        enctype="multipart/form-data">
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label" for="name">Your Name</label>
-                                <input type="text" name="name" id="name" class="form-input" placeholder="Enter your name" required>
+                                <input type="text" name="name" id="name" class="form-input"
+                                    placeholder="Enter your name" required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label class="form-label" for="email">Email Address</label>
-                                <input type="email" name="email" id="email" class="form-input" placeholder="Your email for reply" required>
+                                <input type="email" name="email" id="email" class="form-input"
+                                    placeholder="Your email for reply" required>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="form-label" for="subject">Subject</label>
-                            <input type="text" name="subject" id="subject" class="form-input" placeholder="What is this about?" required>
+                            <input type="text" name="subject" id="subject" class="form-input"
+                                placeholder="What is this about?" required>
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="form-label" for="message">Message</label>
-                            <textarea name="message" id="message" class="form-textarea" placeholder="Your message here..." required></textarea>
+                            <textarea name="message" id="message" class="form-textarea"
+                                placeholder="Your message here..." required></textarea>
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="form-label" for="interest">Interest Area</label>
                             <select name="interest" id="interest" class="form-input">
@@ -805,15 +949,45 @@
                                 <option value="other">Other</option>
                             </select>
                         </div>
-                        
+
+                        <!-- File Attachment Section -->
+                        <div class="form-group">
+                            <label class="form-label" for="work-attachment">
+                                <i class="fas fa-paperclip"></i> Attach Your Work (Optional)
+                            </label>
+                            <div class="file-upload-area" id="file-upload-area">
+                                <input type="file" name="work-attachment" id="work-attachment"
+                                    class="form-input file-input" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.zip,.rar"
+                                    multiple style="display: none;">
+
+                                <div class="file-upload-box" id="file-upload-box">
+                                    <i class="fas fa-cloud-upload-alt"
+                                        style="font-size: 2rem; color: var(--accent); margin-bottom: 10px;"></i>
+                                    <p style="color: var(--text-secondary); margin-bottom: 5px;">
+                                        <strong>Drag & drop files here</strong>
+                                    </p>
+                                    <p style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 15px;">
+                                        or click to browse (PDF, DOC, Images, ZIP)
+                                    </p>
+                                    <p style="color: var(--text-secondary); font-size: 0.7rem;">
+                                        Max file size: 10MB
+                                    </p>
+                                </div>
+
+                                <div class="file-list" id="file-list" style="margin-top: 15px;"></div>
+                            </div>
+                        </div>
+
                         <button type="submit" class="submit-btn">
-                            <i class="fas fa-paper-plane"></i> SEND MESSAGE
+                            <i class="fas fa-paper-plane"></i> SEND MESSAGE WITH ATTACHMENTS
                         </button>
                     </form>
                 </section>
+
+
             </main>
         </div>
-        
+
         <footer class="profile-footer">
             <!-- EDIT FOOTER TEXT HERE -->
             <p class="copyright">© 2024 Your Name. All digital rights reserved.</p>
@@ -824,12 +998,12 @@
     <script>
         // Theme Switching
         document.querySelectorAll('.theme-btn').forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
-                
+
                 document.body.classList.remove('theme-dragonfire', 'theme-cybervoid');
-                
+
                 if (this.id === 'dragonfire-theme') {
                     document.body.classList.add('theme-dragonfire');
                 } else if (this.id === 'cybervoid-theme') {
@@ -837,13 +1011,13 @@
                 }
             });
         });
-        
+
         // Layout Switching
         document.querySelectorAll('.layout-btn').forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 document.querySelectorAll('.layout-btn').forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
-                
+
                 const layout = this.id === 'grid-layout' ? 'grid' : 'list';
                 const works = document.querySelectorAll('.work-card');
                 works.forEach(work => {
@@ -852,13 +1026,13 @@
                 });
             });
         });
-        
+
         // Form Submission with Formspree
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
             // Let the form submit to Formspree
             // The form will naturally redirect or show success
         });
-        
+
         // Dragon Seed Animation
         function createDragonSeeds() {
             for (let i = 0; i < 15; i++) {
@@ -871,11 +1045,12 @@
                 document.body.appendChild(seed);
             }
         }
-        
+
         // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             createDragonSeeds();
         });
     </script>
 </body>
+
 </html>
