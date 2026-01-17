@@ -1,221 +1,507 @@
-<div align="center">
-🧬 MULTIDISCIPLINARY ENGINEER × CREATOR
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=3000&pause=1000&color=00D9FF&center=true&vCenter=true&width=600&lines=Software+Engineer+%7C+Code+Architect;3D+Artist+%7C+Blender+Virtuoso;Biomedical+Engineer+%7C+MedTech+Innovator;Building+at+the+Intersection+of+Tech+%26+Biology" alt="Typing SVG" />
+```
+ ╔════════════════════════════════════════════════════════════════════════════╗
+ ║                                                                            ║
+ ║     ██╗   ██╗ █████╗ ███╗   ██╗     ██████╗ ██████╗  █████╗  ██████╗      ║
+ ║     ██║   ██║██╔══██╗████╗  ██║     ██╔══██╗██╔══██╗██╔══██╗██╔════╝      ║
+ ║     ██║   ██║███████║██╔██╗ ██║     ██║  ██║██████╔╝███████║██║  ███╗     ║
+ ║     ╚██╗ ██╔╝██╔══██║██║╚██╗██║     ██║  ██║██╔══██╗██╔══██║██║   ██║     ║
+ ║      ╚████╔╝ ██║  ██║██║ ╚████║     ██████╔╝██║  ██║██║  ██║╚██████╔╝     ║
+ ║       ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝      ║
+ ║                                                                            ║
+ ║                    C O D E X   ▸   D I G I T A L   C R E A T O R          ║
+ ║                                                                            ║
+ ╚════════════════════════════════════════════════════════════════════════════╝
+```
 
-🎯 The Convergence Zone
-Where computational precision meets biological complexity, and digital art breathes life into data.
+<div align="center">
+# 🐉 ENYANWUMA DANIEL IKECHUKWU
+
+### `SOFTWARE ENGINEER` × `3D ARTIST` × `DIGITAL CREATOR`
+
+<img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=700&size=24&duration=3000&pause=1000&color=00FF9D&center=true&vCenter=true&width=700&lines=Building+Digital+Experiences;Crafting+3D+Worlds+in+Blender;Engineering+Scalable+Solutions;Creating+Visual+Stories" alt="Typing SVG" />
+
+[![Portfolio](https://img.shields.io/badge/🌐_PORTFOLIO-00FF9D?style=for-the-badge&logo=googlechrome&logoColor=0c0c1d)](https://yourportfolio.com)
+[![Email](https://img.shields.io/badge/📧_CONTACT-00FF9D?style=for-the-badge&logo=gmail&logoColor=0c0c1d)](mailto:your.email@example.com)
+[![LinkedIn](https://img.shields.io/badge/💼_LINKEDIN-00FF9D?style=for-the-badge&logo=linkedin&logoColor=0c0c1d)](https://linkedin.com/in/yourprofile)
+
 </div>
 
-🚀 MISSION STATEMENT
-I engineer solutions at the bleeding edge of three domains:
-💻 SOFTWARE ENGINEERING — Architecting scalable systems, clean code, and elegant algorithms
-🎨 3D MODELING & VISUALIZATION — Crafting photorealistic renders, medical visualizations, and interactive experiences
-🧬 BIOMEDICAL ENGINEERING — Innovating medical devices, biosignal processing, and health tech solutions
+---
 
-"The best innovations emerge when you refuse to stay in one box."
+## `>_ SYSTEM STATUS`
 
+```bash
+┌─[Enyanwuma@github]─[~/profile]
+└──╼ $ cat about.txt
 
-🛠️ TECHNICAL ARSENAL
+[INITIALIZING PROFILE...]
+▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100%
+
+╔══════════════════════════════════════════════════════════╗
+║  DESIGNATION: Software Engineer & Digital Creator        ║
+║  LOCATION: Cyberspace                                    ║
+║  MISSION: Transform ideas into interactive experiences   ║
+║  STATUS: Online & Building                               ║
+╚══════════════════════════════════════════════════════════╝
+
+I architect digital experiences at the intersection of code, 3D art, and 
+creative design. From scalable software systems to photorealistic 3D models, 
+I bring visions to life through technology.
+```
+
+<details>
+<summary><b>📊 SYSTEM METRICS</b></summary>
+
+```                                                             
+┌─────────────────────────────────────────────────────────────┐______________
+│                    SKILL DISTRIBUTION                       │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  SOFTWARE ENGINEERING    ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▱▱▱▱  85%          │
+│  3D MODELING & BLENDER   ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▱▱▱  90%          │
+│  GRAPHIC DESIGN          ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱  75%          │
+│  CONTENT CREATION        ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▱▱▱▱  80%          │
+│  PROBLEM SOLVING         ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▱▱  95%          │
+│                                                             │______________
+└─────────────────────────────────────────────────────────────┘
+```
+
+</details>
+
+---
+
+## `⚡ TECH ARSENAL`
+
 <div align="center">
-💾 Software Engineering
-Show Image
-Show Image
-Show Image
-Show Image
-Show Image
-Show Image
-Show Image
-Show Image
-🎨 3D Design & Visualization
-Show Image
-Show Image
-Show Image
-Show Image
-Show Image
-🧬 Biomedical & Scientific Computing
-Show Image
-Show Image
-Show Image
-Show Image
-Show Image
+
+### `[ SOFTWARE ENGINEERING ]`
+
+![Python](https://img.shields.io/badge/Python-0c0c1d?style=for-the-badge&logo=python&logoColor=00FF9D)
+![JavaScript](https://img.shields.io/badge/JavaScript-0c0c1d?style=for-the-badge&logo=javascript&logoColor=00FF9D)
+![TypeScript](https://img.shields.io/badge/TypeScript-0c0c1d?style=for-the-badge&logo=typescript&logoColor=00FF9D)
+![React](https://img.shields.io/badge/React-0c0c1d?style=for-the-badge&logo=react&logoColor=00FF9D)
+![Node.js](https://img.shields.io/badge/Node.js-0c0c1d?style=for-the-badge&logo=node.js&logoColor=00FF9D)
+![Docker](https://img.shields.io/badge/Docker-0c0c1d?style=for-the-badge&logo=docker&logoColor=00FF9D)
+![Git](https://img.shields.io/badge/Git-0c0c1d?style=for-the-badge&logo=git&logoColor=00FF9D)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-0c0c1d?style=for-the-badge&logo=postgresql&logoColor=00FF9D)
+
+### `[ 3D & CREATIVE TOOLS ]`
+
+![Blender](https://img.shields.io/badge/Blender-0c0c1d?style=for-the-badge&logo=blender&logoColor=00FF9D)
+![Adobe](https://img.shields.io/badge/Adobe_CC-0c0c1d?style=for-the-badge&logo=adobe&logoColor=00FF9D)
+![Figma](https://img.shields.io/badge/Figma-0c0c1d?style=for-the-badge&logo=figma&logoColor=00FF9D)
+![CapCut](https://img.shields.io/badge/CapCut-0c0c1d?style=for-the-badge&logo=tiktok&logoColor=00FF9D)
+![Photoshop](https://img.shields.io/badge/Photoshop-0c0c1d?style=for-the-badge&logo=adobephotoshop&logoColor=00FF9D)
+![Illustrator](https://img.shields.io/badge/Illustrator-0c0c1d?style=for-the-badge&logo=adobeillustrator&logoColor=00FF9D)
+
 </div>
 
-🎯 CURRENT FOCUS
-pythonclass MultidisciplinaryEngineer:
-    def __init__(self):
-        self.name = "Your Name"
-        self.roles = ["Software Engineer", "3D Artist", "Biomedical Engineer"]
-        self.current_projects = {
-            "software": "Building scalable microservices architecture",
-            "3d_art": "Creating medical visualization suite in Blender",
-            "biomedical": "Developing biosignal processing algorithms"
-        }
-        self.learning = ["Rust", "Houdini", "Computational Biology"]
-        
-    def daily_routine(self):
-        return [
-            "☕ Code something elegant",
-            "🎨 Model something beautiful", 
-            "🧬 Solve something meaningful",
-            "🚀 Push boundaries"
-        ]
-    
-    def life_philosophy(self):
-        return "Build things that matter. Make them beautiful. Share the knowledge."
+---
 
-# Initialize
-engineer = MultidisciplinaryEngineer()
-print(engineer.life_philosophy())
+## `🎯 ACTIVE PROJECTS`
 
-🏆 FEATURED PROJECTS
 <table>
 <tr>
-<td width="50%">
-💻 Medical Image Segmentation Platform
-Full-stack web app for AI-powered medical image analysis
+<td width="50%" valign="top">
 
-Stack: React, FastAPI, PyTorch
-Impact: 40% faster diagnosis workflow
-🔗 View Project
+### 💻 `SOFTWARE ENGINEERING`
+
+```python
+class SoftwareEngineer:
+    def __init__(self):
+        self.name = " ENYANWUMA DANIEL IKECHUKWU"
+        self.role = "Full Stack Developer"
+        self.languages = [
+            "Python", "JavaScript", 
+            "TypeScript", "C++"
+        ]
+        
+    def code(self):
+        return "Building scalable solutions"
+        
+    def current_focus(self):
+        return [
+            "Microservices Architecture",
+            "API Development",
+            "Database Optimization",
+            "DevOps & CI/CD"
+        ]
+```
+
+**Active Work:**
+- 🔧 Building RESTful APIs with FastAPI
+- 🐳 Containerization with Docker & K8s
+- ⚡ Performance optimization projects
+- 🔐 Secure authentication systems
 
 </td>
-<td width="50%">
-🎨 Anatomical 3D Library
-Photorealistic medical models for education
+<td width="50%" valign="top">
 
-Tools: Blender, Substance Painter
-Output: 50+ anatomically accurate models
-🔗 View Portfolio
+### 🎨 `3D MODELING & DESIGN`
 
-</td>
-</tr>
-<tr>
-<td width="50%">
-🧬 ECG Signal Analyzer
-Real-time cardiac signal processing system
+```javascript
+const BlenderArtist = {
+  specialty: "3D Modeling & Animation",
+  workflow: [
+    "Blockout → Refine Topology",
+    "UV Unwrap → Texture Painting",
+    "Lighting → Rendering",
+    "LODs for Game Assets"
+  ],
+  tools: {
+    primary: "Blender 3.x",
+    texturing: "Substance Painter",
+    rendering: "Cycles & Eevee"
+  },
+  focus: "Game-ready assets & Visualization"
+}
+```
 
-Tech: Python, DSP algorithms, Qt
-Accuracy: 98.5% arrhythmia detection
-🔗 View Research
-
-</td>
-<td width="50%">
-🌐 BioViz: Interactive 3D Anatomy
-WebGL-based anatomy learning platform
-
-Stack: Three.js, React, WebAssembly
-Users: 10K+ medical students
-🔗 Live Demo
+**Current Projects:**
+- 🎮 Game asset creation & optimization
+- 🏗️ Architectural visualization
+- 🎬 Product renders & animations
+- 📐 Procedural modeling workflows
 
 </td>
 </tr>
 </table>
 
-📊 GITHUB ANALYTICS
+---
+
+## `🎬 CONTENT CREATION`
+
+```bash
+┌─[CREATIVE_SUITE]──────────────────────────────────────┐
+│                                                        │
+│  ► Graphic Design                                     │
+│    └─ Adobe Suite (Illustrator, Photoshop)           │
+│    └─ Figma for UI/UX designs                        │
+│    └─ Visual identity & branding                     │
+│                                                        │
+│  ► Video Editing                                      │
+│    └─ CapCut for social media content                │
+│    └─ Motion graphics & VFX                          │
+│    └─ Content strategy & storytelling                │
+│                                                        │
+│  ► Social Media                                       │
+│    └─ Platform-optimized content                     │
+│    └─ Engagement-driven creative                     │
+│    └─ Brand consistency across channels              │
+│                                                        │
+└────────────────────────────────────────────────────────┘
+```
+
 <div align="center">
-<img height="180em" src="https://github-readme-stats.vercel.app/api?username=YOUR_USERNAME&show_icons=true&theme=radical&include_all_commits=true&count_private=true"/>
-<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR_USERNAME&layout=compact&langs_count=8&theme=radical"/>
+
+**🎥 Latest Content**
+
+[![YouTube](https://img.shields.io/badge/YouTube-Tutorials-00FF9D?style=for-the-badge&logo=youtube&logoColor=0c0c1d)](https://youtube.com)
+[![TikTok](https://img.shields.io/badge/TikTok-Creative-00FF9D?style=for-the-badge&logo=tiktok&logoColor=0c0c1d)](https://tiktok.com)
+[![Instagram](https://img.shields.io/badge/Instagram-Visual-00FF9D?style=for-the-badge&logo=instagram&logoColor=0c0c1d)](https://instagram.com)
+
 </div>
 
-🎓 KNOWLEDGE DOMAINS
-<details>
-<summary><b>💻 Software Engineering Expertise</b></summary>
+---
 
-Architecture: Microservices, Event-Driven Systems, Domain-Driven Design
-Backend: RESTful APIs, GraphQL, WebSockets, Message Queues
-Frontend: React Ecosystem, State Management, Progressive Web Apps
-DevOps: CI/CD, Containerization, Kubernetes, Cloud Infrastructure
-Databases: SQL (PostgreSQL, MySQL), NoSQL (MongoDB, Redis)
-Testing: TDD, Integration Testing, E2E with Playwright/Cypress
+## `🎮 CONTRIBUTION GAME`
+
+<div align="center">
+
+### **⚡ INTERACTIVE CONTRIBUTION TRACKER ⚡**
+
+**Click to play the full interactive version!**
+
+[![Play Contribution Game](https://img.shields.io/badge/▶_LAUNCH_GAME-00FF9D?style=for-the-badge&logo=github&logoColor=0c0c1d)](https://YOUR_USERNAME.github.io/YOUR_USERNAME/contribution-game.html)
+
+</div>
+
+```
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                     GITHUB CONTRIBUTION MATRIX                            ║
+║                 [Click the link above to interact]                        ║
+╠═══════════════════════════════════════════════════════════════════════════╣
+║                                                                           ║
+║  Week →  1    2    3    4    5    6    7    8    9   10   11   12  ...  ║
+║        ┌────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐    ║
+║  Mon   │ ░░ │ ▓▓ │ ░░ │ ██ │ ░░ │ ▓▓ │ ██ │ ░░ │ ▓▓ │ ░░ │ ██ │ ░░ │    ║
+║  Tue   │ ▓▓ │ ░░ │ ██ │ ░░ │ ▓▓ │ ██ │ ░░ │ ▓▓ │ ░░ │ ██ │ ░░ │ ▓▓ │    ║
+║  Wed   │ ░░ │ ██ │ ░░ │ ▓▓ │ ██ │ ░░ │ ▓▓ │ ██ │ ░░ │ ▓▓ │ ░░ │ ██ │    ║
+║  Thu   │ ██ │ ░░ │ ▓▓ │ ██ │ ░░ │ ▓▓ │ ░░ │ ██ │ ▓▓ │ ░░ │ ▓▓ │ ░░ │    ║
+║  Fri   │ ░░ │ ▓▓ │ ██ │ ░░ │ ▓▓ │ ░░ │ ██ │ ░░ │ ██ │ ▓▓ │ ██ │ ▓▓ │    ║
+║  Sat   │ ▓▓ │ ██ │ ░░ │ ▓▓ │ ██ │ ▓▓ │ ░░ │ ▓▓ │ ░░ │ ██ │ ░░ │ ██ │    ║
+║  Sun   │ ██ │ ░░ │ ▓▓ │ ░░ │ ░░ │ ██ │ ▓▓ │ ░░ │ ▓▓ │ ░░ │ ▓▓ │ ░░ │    ║
+║        └────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘    ║
+║                                                                           ║
+║  Legend:  ░░ = Low    ▓▓ = Medium    ██ = High                          ║
+║                                                                           ║
+║  🎯 Stats:  │ 156 Total │ 23 Streak │ 45 Longest │                      ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+```
+
+<details>
+<summary><b>🎮 GAME FEATURES</b></summary>
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  CONTRIBUTION TRACKER GAME - FEATURES                   │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  ✓ Interactive 52-week grid (364 squares)             │
+│  ✓ 5 intensity levels with glowing effects            │
+│  ✓ Click squares to toggle (0→1→2→3→4→0)             │
+│  ✓ Real-time statistics tracking                      │
+│  ✓ Pattern presets: Checkerboard, Wave, etc.         │
+│  ✓ Auto-save in browser storage                       │
+│  ✓ Keyboard shortcuts (C/R/F)                         │
+│  ✓ Van_Dragon Codex themed design                    │
+│                                                         │
+│  KEYBOARD SHORTCUTS:                                   │
+│    C = Clear grid                                      │
+│    R = Randomize                                       │
+│    F = Fill all                                        │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
 
 </details>
-<details>
-<summary><b>🎨 3D Modeling & Rendering</b></summary>
 
-Modeling: Hard Surface, Organic Sculpting, Retopology
-Texturing: PBR Workflows, Procedural Materials, UV Mapping
-Lighting: Studio Setups, HDRI, Caustics, Volumetrics
-Animation: Rigging, Motion Graphics, Physics Simulations
-Rendering: Cycles, Eevee, Real-time optimization
-Specialization: Medical/Scientific Visualization, Product Renders
+---
+
+## `📊 GITHUB ANALYTICS`
+
+<div align="center">
+
+<img src="https://github-readme-stats.vercel.app/api?username=YOUR_USERNAME&show_icons=true&theme=dark&bg_color=0c0c1d&title_color=00FF9D&text_color=e0e0ff&icon_color=00FF9D&border_color=00FF9D&hide_border=false" alt="GitHub Stats" />
+
+<img src="https://github-readme-streak-stats.herokuapp.com/?user=YOUR_USERNAME&theme=dark&background=0c0c1d&ring=00FF9D&fire=00FF9D&currStreakLabel=00FF9D&sideLabels=00FF9D&currStreakNum=e0e0ff&sideNums=e0e0ff&dates=a0a0c0&border=00FF9D" alt="GitHub Streak" />
+
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR_USERNAME&layout=compact&theme=dark&bg_color=0c0c1d&title_color=00FF9D&text_color=e0e0ff&border_color=00FF9D&hide_border=false" alt="Top Languages" />
+
+</div>
+
+---
+
+## `💼 FEATURED WORK`
+
+<div align="center">
+
+| Project | Description | Tech Stack | Status |
+|---------|-------------|------------|--------|
+| 🎮 **Game Asset Pipeline** | Optimized 3D workflow for game engines | Blender, Python Scripts | `ACTIVE` |
+| 🌐 **Portfolio Site** | Interactive digital portfolio | React, Three.js, GSAP | `LIVE` |
+| 🔧 **API Framework** | Scalable REST API architecture | FastAPI, PostgreSQL, Redis | `PRODUCTION` |
+| 🎨 **Design System** | Component library & UI kit | Figma, React, Storybook | `ACTIVE` |
+
+</div>
+
+---
+
+## `🎓 EXPERTISE DOMAINS`
+
+<details>
+<summary><b>💻 SOFTWARE ENGINEERING</b></summary>
+
+```javascript
+const expertise = {
+  backend: {
+    languages: ["Python", "JavaScript", "TypeScript"],
+    frameworks: ["FastAPI", "Express", "Django"],
+    databases: ["PostgreSQL", "MongoDB", "Redis"],
+    tools: ["Docker", "Kubernetes", "Git", "CI/CD"]
+  },
+  frontend: {
+    core: ["React", "Vue", "HTML5", "CSS3"],
+    styling: ["Tailwind", "Styled Components", "SASS"],
+    state: ["Redux", "Context API", "Zustand"],
+    build: ["Vite", "Webpack", "Rollup"]
+  },
+  architecture: [
+    "Microservices",
+    "RESTful APIs",
+    "GraphQL",
+    "Event-Driven Design",
+    "Database Optimization",
+    "Caching Strategies"
+  ]
+}
+```
 
 </details>
-<details>
-<summary><b>🧬 Biomedical Engineering</b></summary>
 
-Medical Devices: Design, Prototyping, FDA Regulatory Knowledge
-Biosignal Processing: ECG, EEG, EMG Analysis and Filtering
-Medical Imaging: DICOM Processing, Image Segmentation, 3D Reconstruction
-Biomechanics: Finite Element Analysis, Gait Analysis
-Bioinformatics: Genomic Data Analysis, Protein Structure Prediction
-Health Tech: Wearables, Telemedicine, Clinical Decision Support Systems
+<details>
+<summary><b>🎨 3D MODELING & BLENDER</b></summary>
+
+```python
+blender_skills = {
+    "modeling": {
+        "hard_surface": ["Mechanical parts", "Vehicles", "Architecture"],
+        "organic": ["Characters", "Creatures", "Natural objects"],
+        "workflow": "Blockout → Refine → UV unwrap → Texture → Render"
+    },
+    "texturing": {
+        "tools": ["Substance Painter", "Blender Shader Editor"],
+        "techniques": ["PBR workflows", "Procedural materials", "UV mapping"]
+    },
+    "rendering": {
+        "engines": ["Cycles", "Eevee"],
+        "skills": ["Lighting setups", "Camera work", "Compositing"]
+    },
+    "animation": {
+        "rigging": "Character & mechanical rigs",
+        "motion": "Keyframe animation, physics simulations"
+    },
+    "scripting": {
+        "language": "Python",
+        "use_cases": ["Automation", "Custom tools", "Batch operations"]
+    },
+    "optimization": [
+        "LOD creation for game engines",
+        "Poly count reduction",
+        "Texture optimization"
+    ]
+}
+```
 
 </details>
 
-📝 LATEST BLOG POSTS
-<!-- BLOG-POST-LIST:START -->
+<details>
+<summary><b>🎬 CONTENT CREATION & DESIGN</b></summary>
 
-🔬 Building a CNN for Medical Image Segmentation
-🎨 Procedural Texturing in Blender: A Technical Deep Dive
-💉 Designing User-Centered Medical Devices
-🚀 From Monolith to Microservices: A Migration Story
+```markdown
+## Graphic Design
+- **Tools**: Adobe Illustrator, Photoshop, Figma
+- **Specialties**: 
+  - Visual identity & branding
+  - UI/UX design
+  - Social media graphics
+  - Print & digital layouts
+- **Approach**: Creativity meets strategy
 
-<!-- BLOG-POST-LIST:END -->
+## Video Editing & Motion
+- **Primary Tool**: CapCut
+- **Skills**:
+  - Social media content optimization
+  - Motion graphics & transitions
+  - Audio syncing & effects
+  - Platform-specific formatting
+- **Focus**: Engagement-driven storytelling
 
-🤝 COLLABORATION & COMMUNITY
-I believe in open source, knowledge sharing, and interdisciplinary collaboration.
+## Content Strategy
+- Platform optimization (Instagram, TikTok, YouTube)
+- Trend analysis & implementation
+- Brand consistency across channels
+- Analytics-driven iteration
+```
 
-🎓 Mentor junior developers and 3D artists
-📝 Write technical articles on dev.to and Medium
-🎤 Speaker at local tech meetups and biomedical conferences
-🌱 Contribute to open-source medical imaging tools
+</details>
 
-Let's build something extraordinary together!
+---
 
-📫 CONNECT WITH ME
-<div align="center">
-Show Image
-Show Image
-Show Image
-Show Image
-Show Image
-</div>
-
-<div align="center">
-💭 PHILOSOPHY
-"Code is poetry. 3D art is sculpture. Biomedical engineering is healing.
-I'm fluent in all three languages."
-
-⚡ FUN FACTS
-🎮 Built a VR surgical training simulator
-🏆 Won hackathon for AI-powered prosthetic control
-🎨 3D models featured in medical textbooks
-🧬 Published research in biomedical signal processing
-☕ Fueled by coffee and curiosity
-
-<img src="https://komarev.com/ghpvc/?username=YOUR_USERNAME&color=blueviolet&style=flat-square&label=Profile+Views" alt="Profile views" />
-</div>
-
-🎮 INTERACTIVE CONTRIBUTION TRACKER
-<div align="center">
-Click the squares to toggle them! Try to create patterns or your initials.
-This mimics GitHub's contribution graph with game-like interactivity.
-</div>
-<!-- Interactive game will be in separate HTML file -->
-<div align="center">
-  <a href="./contribution-game.html">
-    <img src="https://img.shields.io/badge/▶_PLAY_CONTRIBUTION_GAME-00D9FF?style=for-the-badge&logo=github&logoColor=black" alt="Play Game"/>
-  </a>
-</div>
+## `🌐 CONNECT`
 
 <div align="center">
-🌟 SUPPORT MY WORK
-If you find my projects helpful, consider starring ⭐ them!
-Show Image
 
-Built with 💙 at the intersection of Software × Art × Medicine
-Last Updated: January 2026
+```bash
+┌─[CONTACT_PROTOCOLS]────────────────────────────┐
+│                                                 │
+│  📧 EMAIL     → enyanwumadaniel@gmail.com       │
+│  💼 LINKEDIN  → www.linkedin.com/in/daniel-enyanwuma-637567392 │
+│  🌐 PORTFOLIO → https://enyanwuma.github.io/Enyanwuma/ │
+│  🐙 GITHUB    → https://github.com/Enyanwuma    │
+│  📱 SOCIAL    → https://x.com/enyadonny_        │
+│                                                 │
+└─────────────────────────────────────────────────┘
+```
+
+<table>
+<tr>
+<td align="center" width="25%">
+
+**📧 EMAIL**
+
+[your.email@example.com](mailto:your.enyanwumadaniel@gmail.com )
+
+Work inquiries
+
+</td>
+<td align="center" width="25%">
+
+**💼 PROFESSIONAL**
+
+[LinkedIn Profile](www.linkedin.com/in/daniel-enyanwuma-637567392)
+
+Let's connect
+
+</td>
+<td align="center" width="25%">
+
+**🎨 PORTFOLIO**
+
+[View Portfolio](https://enyanwuma.github.io/Enyanwuma/)
+
+See my work
+
+</td>
+<td align="center" width="25%">
+
+**🎬 CONTENT**
+
+[Social Media](https://x.com/enyadonny_ )
+
+Follow my journey
+
+</td>
+</tr>
+</table>
+
 </div>
-<h2>🐍 Contribution Snake</h2>
 
-![Snake animation](https://github.com/yourusername/yourusername/blob/output/github-contribution-grid-snake.svg)
+---
+
+## `⚡ QUICK FACTS`
+
+```python
+Daniel Enyanwuma = {
+    "code": ["Python", "JavaScript", "TypeScript", "C++"],
+    "create": ["Blender 3D", "Adobe CC", "CapCut", "Figma"],
+    "build": ["Web Apps", "APIs", "3D Assets", "Visual Content"],
+    "learning": ["Always exploring new tech"],
+    "available_for": [
+        "Freelance projects",
+        "Collaborations",
+        "Open source contributions"
+    ],
+    "fun_fact": "I can code and model simultaneously!",
+    "motto": "Build. Create. Inspire. Repeat."
+}
+```
+
+---
+
+<div align="center">
+
+### `⚡ POWER LEVEL: OVER 9000 ⚡`
+
+```
+▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰ 100%
+
+SYSTEMS ONLINE | ALL FUNCTIONS OPERATIONAL
+```
+
+---
+
+**`© 2024 Van_Dragon Codex • Built with 💚 and ⚡`**
+
+*Crafted in the digital realm • Powered by code & creativity*
+
+<img src="https://komarev.com/ghpvc/?username=YOUR_USERNAME&color=00FF9D&style=flat-square&label=PROFILE+SCANS" alt="Profile Views" />
+
+---
+
+```
+END OF TRANSMISSION
+```
+
+</div>
