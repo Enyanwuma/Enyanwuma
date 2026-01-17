@@ -14,40 +14,7 @@
 ```
 
 <div align="center">
-<p align="center">
-  <span style="
-    font-size: 28px;
-    font-weight: 900;
-    font-family: 'Orbitron', sans-serif;
-    background: linear-gradient(90deg, #00ff9d, #ff00cc, #00ff9d);
-    background-size: 300% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    animation: dragonGlow 3s infinite linear;
-    text-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
-    letter-spacing: 2px;
-  ">
-    ### 🐉 ENYANWUMA DANIEL IKECHUKWU
-  </span>
-</p>
-
-<style>
-  @keyframes dragonGlow {
-    0% {
-      background-position: 0% 50%;
-      text-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
-    }
-    50% {
-      background-position: 100% 50%;
-      text-shadow: 0 0 25px rgba(255, 0, 204, 0.5);
-    }
-    100% {
-      background-position: 0% 50%;
-      text-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
-    }
-  }
-</style>
+# 🐉 ENYANWUMA DANIEL IKECHUKWU
 
 ### `SOFTWARE ENGINEER` × `3D ARTIST` × `DIGITAL CREATOR`
 
