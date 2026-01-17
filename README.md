@@ -14,11 +14,9 @@
 ```
 
 <div align="center">
-  <span style="color: #00FF9D">###</span> 
-  <span style="font-size: 1.5em">🐉</span> 
-  <span style="font-weight: bold; color: #00FF9D">ENYANWUMA</span> 
-  <span style="color: #FF00CC">DANIEL</span> 
-  <span style="color: #9D4EDD">IKECHUKWU</span>
+   <a href="https://github.com/yourusername">
+    <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=900&size=35&duration=3000&pause=500&color=00FF9D&background=000000&center=true&vCenter=true&width=700&height=80&lines=%F0%9F%90%89+ENYANWUMA+DANIEL+IKECHUKWU" alt="Typing SVG" />
+  </a>
 
 ### `SOFTWARE ENGINEER` × `3D ARTIST` × `DIGITAL CREATOR`
 
