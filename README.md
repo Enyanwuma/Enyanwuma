@@ -14,7 +14,17 @@
 ```
 
 <div align="center">
-# 🐉 ENYANWUMA DANIEL IKECHUKWU
+<p align="center">
+  <a href="https://github.com/YOUR_USERNAME">
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=900&size=32&duration=4000&pause=1000&color=00FF9D&center=true&vCenter=true&width=700&height=80&lines=%F0%9F%90%89+ENYANWUMA+DANIEL+IKECHUKWU;🚀+Bio-Medical+Engineer;💻+Full-Stack+Developer;🎨+Digital+Creator;🔥+Van_Dragon+Codex" alt="Typing animation" />
+  </a>
+</p>
+
+<div align="center">
+  
+  `🔥` `💻` `⚡` `🎨` `🚀` `🐉`
+  
+</div>
 
 ### `SOFTWARE ENGINEER` × `3D ARTIST` × `DIGITAL CREATOR`
 
