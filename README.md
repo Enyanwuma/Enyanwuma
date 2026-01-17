@@ -214,7 +214,7 @@ const BlenderArtist = {
 
 **Click to play the full interactive version!**
 
-[![Play Contribution Game](https://img.shields.io/badge/▶_LAUNCH_GAME-00FF9D?style=for-the-badge&logo=github&logoColor=0c0c1d)](https://YOUR_USERNAME.github.io/YOUR_USERNAME/contribution-game.html)
+[![Play Contribution Game](https://img.shields.io/badge/▶_LAUNCH_GAME-00FF9D?style=for-the-badge&logo=github&logoColor=0c0c1d)](http://github.com/Enyanwuma/Enyanwuma/Contribution game.html)
 
 </div>
 
