@@ -276,7 +276,7 @@ const BlenderArtist = {
 
 <img src="https://github-readme-stats.vercel.app/api?username=Enyanwuma&show_icons=true&theme=dark&bg_color=0c0c1d&title_color=00FF9D&text_color=e0e0ff&icon_color=00FF9D&border_color=00FF9D&hide_border=false" alt="GitHub Stats" />
 
-<img src="https://github-readme-streak-stats.herokuapp.com/?user=Enyanwuma&theme=dark&background=0c0c1d&ring=00FF9D&fire=00FF9D&currStreakLabel=00FF9D&sideLabels=00FF9D&currStreakNum=e0e0ff&sideNums=e0e0ff&dates=a0a0c0&border=00FF9D" alt="GitHub Streak" />
+<img src="https://github-readme-streak-stats.herokuapp.com/?username=Enyanwuma&theme=dark&background=0c0c1d&ring=00FF9D&fire=00FF9D&currStreakLabel=00FF9D&sideLabels=00FF9D&currStreakNum=e0e0ff&sideNums=e0e0ff&dates=a0a0c0&border=00FF9D" alt="GitHub Streak" />
 
 <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Enyanwuma&layout=compact&theme=dark&bg_color=0c0c1d&title_color=00FF9D&text_color=e0e0ff&border_color=00FF9D&hide_border=false" alt="Top Languages" />
 
