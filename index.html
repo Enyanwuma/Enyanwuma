@@ -10,7 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&display=swap"
         rel="stylesheet">
-
+    <script src="file.js"></script>
     <style>
         :root {
             --primary: #0c0c1d;
@@ -951,14 +951,32 @@
                         </div>
 
                         <!-- File Attachment Section -->
-<!-- Replace the entire file upload section with: -->
-<div class="form-group">
-    <label class="form-label" for="attachment-note">
-        <i class="fas fa-paperclip"></i> File Attachment Note
-    </label>
-    <input type="text" name="attachment-note" id="attachment-note" class="form-input"
-        placeholder="Describe any files you'd like to share (links, etc.)">
-</div>
+                        <div class="form-group">
+                            <label class="form-label" for="work-attachment">
+                                <i class="fas fa-paperclip"></i> Attach Your Work (Optional)
+                            </label>
+                            <div class="file-upload-area" id="file-upload-area">
+                                <input type="file" name="work-attachment" id="work-attachment"
+                                    class="form-input file-input" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.zip,.rar"
+                                    multiple style="display: none;">
+
+                                <div class="file-upload-box" id="file-upload-box">
+                                    <i class="fas fa-cloud-upload-alt"
+                                        style="font-size: 2rem; color: var(--accent); margin-bottom: 10px;"></i>
+                                    <p style="color: var(--text-secondary); margin-bottom: 5px;">
+                                        <strong>Drag & drop files here</strong>
+                                    </p>
+                                    <p style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 15px;">
+                                        or click to browse (PDF, DOC, Images, ZIP)
+                                    </p>
+                                    <p style="color: var(--text-secondary); font-size: 0.7rem;">
+                                        Max file size: 10MB
+                                    </p>
+                                </div>
+
+                                <div class="file-list" id="file-list" style="margin-top: 15px;"></div>
+                            </div>
+                        </div>
 
                         <button type="submit" class="submit-btn">
                             <i class="fas fa-paper-plane"></i> SEND MESSAGE WITH ATTACHMENTS
@@ -976,12 +994,7 @@
             <p>Built with Van_Dragon Codex aesthetic</p>
         </footer>
     </div>
-<script>
-    // Fallback if file.js doesn't exist
-    window.addEventListener('DOMContentLoaded', function() {
-        console.log('Profile page loaded');
-    });
-</script>
+
     <script>
         // Theme Switching
         document.querySelectorAll('.theme-btn').forEach(button => {
