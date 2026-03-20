@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ENYANWUMA.OS — ADMIN CONSOLE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ══ ROOT VARS — matches portfolio exactly ══ */
+:root {
+  --bg: #030306;
+  --lime: #c8ff00;
+  --orange: #ff5f1f;
+  --cream: #f0ede6;
+  --red: #ff3c5a;
+  --glass: rgba(10,10,18,0.9);
+  --border: rgba(200,255,0,0.18);
+  --border-hot: rgba(200,255,0,0.55);
+  --font-d: 'Bebas Neue', cursive;
+  --font-b: 'DM Mono', monospace;
+  --font-u: 'Syne', sans-serif;
+  --admin-accent: #c8ff00;
+  --admin-danger: #ff3c5a;
+  --admin-info: #1d9bf0;
+  --admin-warn: #ff8c00;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; min-height: 100%; background: var(--bg); color: var(--cream); font-family: var(--font-b); overflow-x: hidden; }
+
+/* ── LOCK SCREEN ── */
+#lock-screen {
+  position: fixed; inset: 0; z-index: 99999;
+  background: #000;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  gap: 0;
+}
+#lock-canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .25; }
+#lock-box {
+  position: relative; z-index: 2;
+  width: min(400px, 90vw);
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+}
+.lock-logo {
+  font-family: var(--font-d);
+  font-size: clamp(32px, 6vw, 56px);
+  letter-spacing: .14em;
+  color: var(--lime);
+  text-shadow: 0 0 40px rgba(200,255,0,.5);
+  animation: lockLogoIn .6s ease forwards;
+}
+.lock-logo span { color: rgba(240,237,230,.3); font-size: .5em; }
+.lock-sub {
+  font-size: 9px; color: rgba(200,255,0,.35);
+  letter-spacing: .28em; text-transform: uppercase; margin-top: -8px;
+}
+.lock-divider {
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200,255,0,.3), transparent);
+  margin: 4px 0;
+}
+.lock-label {
+  font-size: 9px; color: rgba(200,255,0,.5);
+  letter-spacing: .2em; text-transform: uppercase;
+  align-self: flex-start;
+}
+#lock-input {
+  width: 100%;
+  background: rgba(200,255,0,.04);
+  border: 1.5px solid rgba(200,255,0,.25);
+  box-shadow: 4px 4px 0 #000, 0 0 20px rgba(200,255,0,.05);
+  padding: 11px 14px;
+  font-family: var(--font-b); font-size: 15px;
+  color: var(--cream); outline: none;
+  caret-color: var(--lime);
+  letter-spacing: .12em;
+  transition: border-color .2s, box-shadow .2s;
+}
+#lock-input:focus { border-color: var(--lime); box-shadow: 4px 4px 0 #000, 0 0 20px rgba(200,255,0,.15); }
+#lock-input.error { border-color: var(--red); box-shadow: 4px 4px 0 #000, 0 0 20px rgba(255,60,90,.2); animation: lockShake .3s ease; }
+#lock-submit {
+  width: 100%; padding: 11px;
+  background: var(--lime); color: #000;
+  border: 2px solid #000; box-shadow: 4px 4px 0 #000;
+  font-family: var(--font-u); font-size: 13px; font-weight: 800;
+  letter-spacing: .22em; text-transform: uppercase;
+  cursor: pointer; transition: all .14s;
+}
+#lock-submit:hover { background: #d8ff20; transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #000; }
+#lock-submit:active { transform: translate(1px,1px); box-shadow: 1px 1px 0 #000; }
+#lock-hint { font-size: 8px; color: rgba(240,237,230,.18); letter-spacing: .12em; text-align: center; }
+#lock-err { font-size: 10px; color: var(--red); letter-spacing: .08em; min-height: 14px; }
+.lock-attempts { font-size: 8px; color: rgba(255,60,90,.4); letter-spacing: .1em; }
+@keyframes lockLogoIn { 0%{opacity:0;letter-spacing:.6em;filter:blur(10px)} 100%{opacity:1;letter-spacing:.14em;filter:blur(0)} }
+@keyframes lockShake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+#lock-screen.unlocking { animation: lockFade .4s ease forwards; }
+@keyframes lockFade { to { opacity: 0; pointer-events: none; } }
+
+/* ══ MAIN ADMIN LAYOUT ══ */
+#admin-app { display: none; min-height: 100vh; flex-direction: column; }
+#admin-app.visible { display: flex; }
+
+/* ── TOP BAR ── */
+#admin-bar {
+  position: sticky; top: 0; z-index: 100;
+  height: 44px;
+  background: rgba(3,3,6,.98);
+  border-bottom: 2px solid rgba(200,255,0,.2);
+  display: flex; align-items: center;
+  padding: 0 20px; gap: 16px;
+  backdrop-filter: blur(20px);
+}
+.admin-bar-logo {
+  font-family: var(--font-d); font-size: 18px;
+  letter-spacing: .16em; color: var(--lime);
+  text-shadow: 0 0 20px rgba(200,255,0,.4);
+  flex-shrink: 0;
+}
+.admin-bar-logo span { color: rgba(200,255,0,.35); font-size: .7em; }
+.admin-bar-tag {
+  font-size: 8px; padding: 2px 8px;
+  border: 1px solid rgba(255,60,90,.4);
+  color: rgba(255,60,90,.8);
+  letter-spacing: .15em; text-transform: uppercase;
+  background: rgba(255,60,90,.06);
+}
+.admin-bar-sep { flex: 1; }
+#admin-live-indicator {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 8px; color: rgba(200,255,0,.45);
+  letter-spacing: .12em; text-transform: uppercase;
+}
+.live-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 8px var(--lime);
+  animation: livePulse 1.8s ease-in-out infinite;
+}
+@keyframes livePulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+#admin-save-all {
+  padding: 5px 14px;
+  background: var(--lime); color: #000;
+  border: 1.5px solid #000; box-shadow: 2px 2px 0 #000;
+  font-family: var(--font-u); font-size: 9px; font-weight: 800;
+  letter-spacing: .16em; text-transform: uppercase;
+  cursor: pointer; transition: all .12s;
+}
+#admin-save-all:hover { transform: translate(-1px,-1px); box-shadow: 3px 3px 0 #000; }
+#admin-lock-btn {
+  padding: 5px 12px;
+  background: transparent; color: rgba(255,60,90,.7);
+  border: 1.5px solid rgba(255,60,90,.3);
+  font-family: var(--font-b); font-size: 9px;
+  letter-spacing: .1em; text-transform: uppercase;
+  cursor: pointer; transition: all .12s;
+}
+#admin-lock-btn:hover { background: rgba(255,60,90,.08); color: var(--red); border-color: var(--red); }
+#admin-clock { font-size: 10px; color: var(--lime); font-weight: 500; }
+
+/* ── SIDEBAR + CONTENT ── */
+#admin-body { display: flex; flex: 1; min-height: 0; }
+#admin-sidebar {
+  width: 200px; flex-shrink: 0;
+  background: rgba(5,5,10,.95);
+  border-right: 1px solid rgba(200,255,0,.1);
+  display: flex; flex-direction: column;
+  padding: 16px 0;
+  position: sticky; top: 44px; height: calc(100vh - 44px);
+  overflow-y: auto;
+}
+.sidebar-section-title {
+  font-size: 7px; color: rgba(200,255,0,.3);
+  letter-spacing: .2em; text-transform: uppercase;
+  padding: 10px 16px 6px;
+  border-top: 1px solid rgba(200,255,0,.07);
+  margin-top: 6px;
+}
+.sidebar-section-title:first-child { border-top: none; margin-top: 0; }
+.sidebar-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 16px; font-size: 10px;
+  color: rgba(240,237,230,.5); letter-spacing: .06em;
+  cursor: pointer; transition: all .14s;
+  border-left: 2px solid transparent;
+  text-transform: uppercase;
+}
+.sidebar-item:hover { background: rgba(200,255,0,.05); color: rgba(240,237,230,.85); border-left-color: rgba(200,255,0,.3); }
+.sidebar-item.active { background: rgba(200,255,0,.07); color: var(--lime); border-left-color: var(--lime); }
+.sidebar-icon { font-size: 13px; width: 18px; text-align: center; flex-shrink: 0; }
+.sidebar-badge {
+  margin-left: auto; font-size: 7px;
+  background: var(--orange); color: #000;
+  padding: 1px 5px; border-radius: 0;
+  font-weight: 900;
+}
+#admin-content {
+  flex: 1; overflow-y: auto; padding: 24px 28px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200,255,0,.2) transparent;
+}
+#admin-content::-webkit-scrollbar { width: 4px; }
+#admin-content::-webkit-scrollbar-thumb { background: rgba(200,255,0,.25); }
+
+/* ── PANELS ── */
+.admin-panel { display: none; }
+.admin-panel.active { display: block; }
+
+.panel-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px; padding-bottom: 14px;
+  border-bottom: 2px solid rgba(200,255,0,.15);
+}
+.panel-title {
+  font-family: var(--font-d); font-size: 28px;
+  letter-spacing: .1em; color: var(--cream);
+  line-height: 1;
+}
+.panel-subtitle { font-size: 9px; color: rgba(240,237,230,.35); letter-spacing: .15em; text-transform: uppercase; margin-top: 3px; }
+.panel-tag {
+  font-size: 8px; padding: 2px 8px;
+  border: 1px solid rgba(200,255,0,.35); color: rgba(200,255,0,.7);
+  letter-spacing: .12em; text-transform: uppercase;
+}
+
+/* ── FORM ELEMENTS ── */
+.field-group { margin-bottom: 18px; }
+.field-group:last-child { margin-bottom: 0; }
+.field-label {
+  display: block; font-size: 8px; color: rgba(200,255,0,.6);
+  letter-spacing: .18em; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.field-hint { font-size: 8px; color: rgba(240,237,230,.25); margin-top: 4px; letter-spacing: .04em; }
+.field-input, .field-textarea, .field-select {
+  width: 100%;
+  background: rgba(200,255,0,.03);
+  border: 1.5px solid rgba(200,255,0,.18);
+  box-shadow: 3px 3px 0 #000;
+  padding: 9px 12px;
+  font-family: var(--font-b); font-size: 11px;
+  color: var(--cream); outline: none;
+  letter-spacing: .04em; transition: border-color .2s, box-shadow .2s;
+}
+.field-input:focus, .field-textarea:focus, .field-select:focus {
+  border-color: var(--lime);
+  box-shadow: 3px 3px 0 #000, 0 0 12px rgba(200,255,0,.1);
+}
+.field-input::placeholder, .field-textarea::placeholder { color: rgba(240,237,230,.2); }
+.field-textarea { resize: vertical; min-height: 80px; line-height: 1.65; }
+.field-select { cursor: pointer; }
+.field-select option { background: #0a0a0f; }
+
+/* color input */
+.color-row { display: flex; gap: 8px; align-items: center; }
+.color-row input[type=color] {
+  width: 36px; height: 36px; padding: 2px;
+  border: 1.5px solid rgba(200,255,0,.2);
+  background: transparent; cursor: pointer;
+  box-shadow: 2px 2px 0 #000;
+}
+.color-row .field-input { flex: 1; }
+
+/* ── CARD CONTAINERS ── */
+.admin-card {
+  background: rgba(200,255,0,.03);
+  border: 1.5px solid rgba(200,255,0,.14);
+  box-shadow: 4px 4px 0 #000;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  position: relative;
+}
+.admin-card-title {
+  font-family: var(--font-d); font-size: 16px;
+  color: rgba(200,255,0,.8); letter-spacing: .1em;
+  margin-bottom: 14px; padding-bottom: 8px;
+  border-bottom: 1px solid rgba(200,255,0,.1);
+  display: flex; align-items: center; gap: 8px;
+}
+.admin-card-title .card-icon { font-size: 14px; }
+
+/* ── BUTTONS ── */
+.btn { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; transition: all .12s; font-family: var(--font-u); letter-spacing: .12em; text-transform: uppercase; border: 1.5px solid; }
+.btn-primary { background: var(--lime); color: #000; border-color: #000; box-shadow: 3px 3px 0 #000; padding: 8px 18px; font-size: 10px; font-weight: 800; }
+.btn-primary:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 #000; }
+.btn-secondary { background: transparent; color: var(--cream); border-color: rgba(240,237,230,.2); box-shadow: 2px 2px 0 #000; padding: 6px 14px; font-size: 9px; }
+.btn-secondary:hover { border-color: rgba(200,255,0,.4); color: var(--lime); }
+.btn-danger { background: transparent; color: var(--red); border-color: rgba(255,60,90,.3); box-shadow: 2px 2px 0 #000; padding: 6px 12px; font-size: 9px; }
+.btn-danger:hover { background: rgba(255,60,90,.08); border-color: var(--red); }
+.btn-sm { padding: 4px 10px; font-size: 8px; }
+.btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+
+/* ── TOAST ── */
+#admin-toast {
+  position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+  background: rgba(10,10,18,.98); border: 1.5px solid var(--lime);
+  box-shadow: 4px 4px 0 #000;
+  padding: 12px 16px; max-width: 280px;
+  transform: translateX(320px); opacity: 0;
+  transition: all .3s cubic-bezier(.34,1.56,.64,1);
+}
+#admin-toast.show { transform: translateX(0); opacity: 1; }
+.toast-title { font-size: 8px; color: var(--lime); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 3px; }
+.toast-msg { font-size: 11px; color: var(--cream); }
+
+/* ── GRID LAYOUTS ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+@media(max-width:900px) { .two-col,.three-col { grid-template-columns: 1fr; } }
+
+/* ── STAT CARDS ── */
+.stat-card {
+  background: rgba(200,255,0,.03); border: 1.5px solid rgba(200,255,0,.15);
+  box-shadow: 3px 3px 0 #000; padding: 14px 16px; text-align: center;
+}
+.stat-num { font-family: var(--font-d); font-size: 32px; color: var(--lime); line-height: 1; }
+.stat-label { font-size: 8px; color: rgba(240,237,230,.35); letter-spacing: .14em; text-transform: uppercase; margin-top: 4px; }
+
+/* ── VIBE TAGS ── */
+.vibe-list { display: flex; flex-direction: column; gap: 8px; }
+.vibe-item {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(200,255,0,.04); border: 1px solid rgba(200,255,0,.15);
+  padding: 8px 12px;
+}
+.vibe-item input { flex: 1; background: transparent; border: none; outline: none; font-family: var(--font-b); font-size: 11px; color: var(--cream); caret-color: var(--lime); }
+.vibe-item .vibe-emoji { font-size: 16px; flex-shrink: 0; cursor: pointer; }
+.vibe-delete { background: none; border: none; color: rgba(255,60,90,.5); cursor: pointer; font-size: 14px; padding: 0 4px; transition: color .12s; }
+.vibe-delete:hover { color: var(--red); }
+
+/* ── MANHWA LIST ── */
+.manhwa-list { display: flex; flex-direction: column; gap: 12px; }
+.manhwa-admin-card {
+  background: rgba(255,60,120,.03); border: 1.5px solid rgba(255,60,120,.15);
+  box-shadow: 3px 3px 0 #000; padding: 14px 16px; position: relative;
+}
+.manhwa-admin-card.expanded .manhwa-fields { display: block; }
+.manhwa-fields { display: none; margin-top: 14px; border-top: 1px solid rgba(255,60,120,.1); padding-top: 14px; }
+.manhwa-card-head {
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+}
+.manhwa-card-rank { font-family: var(--font-d); font-size: 20px; color: rgba(255,60,120,.8); width: 32px; flex-shrink: 0; }
+.manhwa-card-name { font-family: var(--font-u); font-size: 13px; font-weight: 700; color: var(--cream); flex: 1; }
+.manhwa-card-status { font-size: 8px; padding: 1px 6px; border: 1px solid rgba(255,60,120,.3); color: rgba(255,140,177,.7); font-family: var(--font-b); letter-spacing: .08em; }
+.manhwa-toggle { background: none; border: none; color: rgba(200,255,0,.4); cursor: pointer; font-size: 14px; transition: transform .2s; }
+.manhwa-admin-card.expanded .manhwa-toggle { transform: rotate(180deg); }
+
+/* ── DEVLOG LIST ── */
+.devlog-list { display: flex; flex-direction: column; gap: 12px; }
+.devlog-admin-card {
+  background: rgba(100,220,255,.03); border: 1.5px solid rgba(100,220,255,.14);
+  box-shadow: 3px 3px 0 #000; padding: 14px 16px;
+}
+.devlog-card-head { display: flex; align-items: center; gap: 10px; }
+.devlog-card-title { font-family: var(--font-u); font-size: 12px; font-weight: 700; color: var(--cream); flex: 1; }
+.devlog-card-tag { font-size: 7px; padding: 1px 6px; border: 1px solid; letter-spacing: .08em; text-transform: uppercase; font-family: var(--font-b); }
+.devlog-card-tag.build { border-color: rgba(200,255,0,.4); color: rgba(200,255,0,.8); }
+.devlog-card-tag.learn { border-color: rgba(100,220,255,.4); color: rgba(100,220,255,.8); }
+.devlog-card-tag.reflect { border-color: rgba(255,95,31,.4); color: rgba(255,95,31,.8); }
+.devlog-fields { display: none; margin-top: 14px; border-top: 1px solid rgba(100,220,255,.1); padding-top: 14px; }
+.devlog-admin-card.expanded .devlog-fields { display: block; }
+.devlog-toggle { background: none; border: none; color: rgba(200,255,0,.4); cursor: pointer; font-size: 14px; transition: transform .2s; }
+.devlog-admin-card.expanded .devlog-toggle { transform: rotate(180deg); }
+
+/* ── TERMINAL PANEL ── */
+#admin-terminal {
+  background: #000; border: 1.5px solid rgba(200,255,0,.2);
+  box-shadow: 4px 4px 0 rgba(200,255,0,.1);
+  padding: 16px; font-size: 11px; min-height: 320px;
+  display: flex; flex-direction: column; gap: 0;
+  overflow-y: auto; max-height: 480px;
+  scrollbar-width: thin; scrollbar-color: rgba(200,255,0,.2) transparent;
+}
+#admin-terminal::-webkit-scrollbar { width: 3px; }
+#admin-terminal::-webkit-scrollbar-thumb { background: rgba(200,255,0,.25); }
+.t-line { padding: 1px 0; line-height: 1.7; }
+.t-prompt { color: var(--lime); }
+.t-cmd { color: var(--orange); }
+.t-out { color: rgba(240,237,230,.7); padding-left: 12px; }
+.t-err { color: rgba(255,60,90,.8); padding-left: 12px; }
+.t-ok { color: rgba(200,255,0,.7); padding-left: 12px; }
+.t-info { color: rgba(100,200,255,.7); padding-left: 12px; }
+#admin-term-row {
+  display: flex; align-items: center; gap: 8px;
+  padding-top: 6px; border-top: 1px solid rgba(200,255,0,.08); margin-top: 4px;
+}
+#admin-term-prompt { color: var(--lime); font-size: 10px; white-space: nowrap; }
+#admin-term-input {
+  flex: 1; background: transparent; border: none; outline: none;
+  color: var(--cream); font-family: var(--font-b); font-size: 11px;
+  caret-color: var(--lime); letter-spacing: .04em;
+}
+
+/* ── TAG INPUT ── */
+.tag-input-wrap {
+  display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+  background: rgba(200,255,0,.03); border: 1.5px solid rgba(200,255,0,.18);
+  box-shadow: 3px 3px 0 #000; padding: 7px 10px; min-height: 42px; cursor: text;
+}
+.tag-chip {
+  display: flex; align-items: center; gap: 4px;
+  background: rgba(200,255,0,.1); border: 1px solid rgba(200,255,0,.3);
+  color: var(--lime); font-size: 9px; padding: 2px 8px;
+  font-family: var(--font-b); letter-spacing: .07em;
+}
+.tag-chip-del { background: none; border: none; color: rgba(200,255,0,.5); cursor: pointer; font-size: 10px; padding: 0; line-height: 1; }
+.tag-chip-del:hover { color: var(--red); }
+.tag-add-input {
+  background: transparent; border: none; outline: none; font-family: var(--font-b);
+  font-size: 10px; color: var(--cream); caret-color: var(--lime); min-width: 80px; flex: 1;
+}
+
+/* ── STATUS BAR ── */
+#admin-statusbar {
+  position: fixed; bottom: 0; left: 0; right: 0; height: 22px; z-index: 200;
+  background: rgba(200,255,0,.08); border-top: 1px solid rgba(200,255,0,.2);
+  display: flex; align-items: center; padding: 0 16px; gap: 16px;
+  font-size: 8px; color: rgba(200,255,0,.5); letter-spacing: .1em;
+}
+.statusbar-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.statusbar-dot.green { background: var(--lime); box-shadow: 0 0 5px var(--lime); }
+.statusbar-dot.orange { background: var(--orange); }
+.statusbar-sep { width: 1px; height: 10px; background: rgba(200,255,0,.15); }
+#statusbar-save-time { margin-left: auto; }
+
+/* ── DASHBOARD STATS ── */
+.dash-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 20px; }
+@media(max-width:900px){.dash-grid{grid-template-columns:1fr 1fr}}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeInUp { 0%{opacity:0;transform:translateY(12px)} 100%{opacity:1;transform:translateY(0)} }
+.admin-panel.active { animation: fadeInUp .25s ease forwards; }
+.admin-card { animation: fadeInUp .3s ease both; }
+
+/* ── SCAN LINE OVERLAY ── */
+body::after {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background: repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(200,255,0,.008) 3px,rgba(200,255,0,.008) 4px);
+}
+</style>
+</head>
+<body>
+
+<!-- ══ LOCK SCREEN ══ -->
+<div id="lock-screen">
+  <canvas id="lock-canvas"></canvas>
+  <div id="lock-box">
+    <div class="lock-logo">ADMIN<span>.SYS</span></div>
+    <div class="lock-sub">ENYANWUMA.OS — CONTROL PANEL</div>
+    <div class="lock-divider"></div>
+    <label class="lock-label">&#x1F510; ACCESS KEY</label>
+    <input type="password" id="lock-input" placeholder="Enter admin passkey..." autocomplete="off" spellcheck="false"/>
+    <div id="lock-err"></div>
+    <button id="lock-submit" onclick="tryUnlock()">UNLOCK CONSOLE &#x2192;</button>
+    <div class="lock-hint">This page is not visible to portfolio visitors.<br/>Keep this URL private.</div>
+    <div class="lock-attempts" id="lock-attempts"></div>
+  </div>
+</div>
+
+<!-- ══ ADMIN APP ══ -->
+<div id="admin-app">
+  <!-- Top Bar -->
+  <div id="admin-bar">
+    <div class="admin-bar-logo">ADMIN<span>.SYS</span></div>
+    <div class="admin-bar-tag">PRIVATE</div>
+    <div class="admin-bar-sep"></div>
+    <div id="admin-live-indicator"><div class="live-dot"></div>LIVE — Changes sync to portfolio instantly</div>
+    <div id="admin-clock">00:00</div>
+    <button id="admin-save-all" onclick="saveAll()">&#x2713; SAVE ALL</button>
+    <button id="admin-lock-btn" onclick="lockAdmin()">&#x1F512; LOCK</button>
+  </div>
+
+  <!-- Body -->
+  <div id="admin-body">
+    <!-- Sidebar -->
+    <div id="admin-sidebar">
+      <div class="sidebar-section-title">Dashboard</div>
+      <div class="sidebar-item active" onclick="showPanel('dashboard')" id="nav-dashboard">
+        <span class="sidebar-icon">&#x25A0;</span>Overview
+      </div>
+
+      <div class="sidebar-section-title">Identity</div>
+      <div class="sidebar-item" onclick="showPanel('vibe')" id="nav-vibe">
+        <span class="sidebar-icon">&#x26A1;</span>Vibe System
+      </div>
+      <div class="sidebar-item" onclick="showPanel('bio')" id="nav-bio">
+        <span class="sidebar-icon">&#x270D;</span>Bio &amp; About
+      </div>
+      <div class="sidebar-item" onclick="showPanel('status')" id="nav-status">
+        <span class="sidebar-icon">&#x25CF;</span>Status / Mood
+      </div>
+
+      <div class="sidebar-section-title">Content</div>
+      <div class="sidebar-item" onclick="showPanel('devlog')" id="nav-devlog">
+        <span class="sidebar-icon">&#x1F4DD;</span>Devlog Posts
+        <span class="sidebar-badge" id="devlog-badge">3</span>
+      </div>
+      <div class="sidebar-item" onclick="showPanel('manhwa')" id="nav-manhwa">
+        <span class="sidebar-icon">&#x1F4D6;</span>Manhwa DB
+        <span class="sidebar-badge" id="manhwa-badge">6</span>
+      </div>
+      <div class="sidebar-item" onclick="showPanel('skills')" id="nav-skills">
+        <span class="sidebar-icon">&#x25CE;</span>Skills Stack
+      </div>
+
+      <div class="sidebar-section-title">System</div>
+      <div class="sidebar-item" onclick="showPanel('terminal')" id="nav-terminal">
+        <span class="sidebar-icon">&#x2B21;</span>Admin Terminal
+      </div>
+      <div class="sidebar-item" onclick="showPanel('settings')" id="nav-settings">
+        <span class="sidebar-icon">&#x2699;</span>Settings
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div id="admin-content">
+
+      <!-- ── DASHBOARD ── -->
+      <div class="admin-panel active" id="panel-dashboard">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">DASHBOARD</div>
+            <div class="panel-subtitle">ENYANWUMA.OS admin overview</div>
+          </div>
+          <div class="panel-tag">LIVE</div>
+        </div>
+        <div class="dash-grid">
+          <div class="stat-card"><div class="stat-num" id="stat-devlog">3</div><div class="stat-label">Devlog Posts</div></div>
+          <div class="stat-card"><div class="stat-num" id="stat-manhwa">6</div><div class="stat-label">Manhwa Titles</div></div>
+          <div class="stat-card"><div class="stat-num" id="stat-vibes">4</div><div class="stat-label">Vibe Options</div></div>
+          <div class="stat-card"><div class="stat-num" id="stat-skills">12</div><div class="stat-label">Skills Listed</div></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">&#x26A1;</span>CURRENT VIBE</div>
+          <div id="dash-vibe" style="font-size:18px;letter-spacing:.04em;color:var(--lime)">Loading...</div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">&#x25CF;</span>STATUS MESSAGE</div>
+          <div id="dash-status" style="font-size:12px;color:rgba(240,237,230,.65);font-family:var(--font-b);line-height:1.6">Loading...</div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">&#x1F4E1;</span>SYNC STATUS</div>
+          <div id="dash-sync" style="font-size:10px;color:rgba(240,237,230,.5);font-family:var(--font-b)">Connecting to IndexedDB...</div>
+        </div>
+      </div>
+
+      <!-- ── VIBE SYSTEM ── -->
+      <div class="admin-panel" id="panel-vibe">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">VIBE SYSTEM</div>
+            <div class="panel-subtitle">Edit the vibe options shown in the OS right-click menu</div>
+          </div>
+          <div class="panel-tag">&#x26A1; IDENTITY</div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">&#x26A1;</span>VIBE OPTIONS</div>
+          <p style="font-size:9px;color:rgba(240,237,230,.4);margin-bottom:12px;letter-spacing:.04em">These are the options randomly shown when someone checks the vibe via right-click → Check the Vibe. You can edit, add or remove entries. They'll appear live in the portfolio immediately.</p>
+          <div class="vibe-list" id="vibe-list"></div>
+          <div class="btn-row">
+            <button class="btn btn-secondary btn-sm" onclick="addVibe()">+ ADD VIBE</button>
+            <button class="btn btn-primary btn-sm" onclick="saveVibes()">&#x2713; SAVE VIBES</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── BIO & ABOUT ── -->
+      <div class="admin-panel" id="panel-bio">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">BIO &amp; ABOUT</div>
+            <div class="panel-subtitle">Override GitHub bio and add extra about info shown in the terminal window</div>
+          </div>
+          <div class="panel-tag">&#x270D; IDENTITY</div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">&#x270E;</span>DISPLAY NAME OVERRIDE</div>
+          <div class="field-group">
+            <label class="field-label">Name (shown in OS title + terminal)</label>
+            <input class="field-input" id="bio-name" placeholder="ENYANWUMA" />
+            <div class="field-hint">Leave blank to use GitHub name</div>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">&#x1F4C4;</span>BIO TEXT</div>
+          <div class="field-group">
+            <label class="field-label">Short bio (shown under name in terminal)</label>
+            <textarea class="field-textarea" id="bio-short" placeholder="Developer & creator. Building OS-grade web experiences." style="min-height:60px"></textarea>
+            <div class="field-hint">Overrides GitHub bio · ~120 chars recommended</div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Extended about (shown when someone runs 'about' in terminal)</label>
+            <textarea class="field-textarea" id="bio-extended" placeholder="Write more about yourself here...&#10;Supports basic HTML (bold, em, br)" style="min-height:120px"></textarea>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="saveBio()">&#x2713; SAVE BIO</button>
+            <button class="btn btn-secondary" onclick="previewBio()">&#x25B6; PREVIEW</button>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">&#x1F4CD;</span>LOCATION &amp; LINKS</div>
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label">Location</label>
+              <input class="field-input" id="bio-location" placeholder="Lagos, Nigeria" />
+            </div>
+            <div class="field-group">
+              <label class="field-label">Availability</label>
+              <select class="field-select" id="bio-availability">
+                <option value="open">&#x1F7E2; Open to Work</option>
+                <option value="freelance">&#x1F7E1; Freelance Only</option>
+                <option value="busy">&#x1F534; Busy / Not Available</option>
+                <option value="passive">&#x26AA; Passively Looking</option>
+              </select>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="saveLocation()">&#x2713; SAVE</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STATUS / MOOD ── -->
+      <div class="admin-panel" id="panel-status">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">STATUS &amp; MOOD</div>
+            <div class="panel-subtitle">What's going on right now — shown in the OS statusbar</div>
+          </div>
+          <div class="panel-tag">&#x25CF; NOW</div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">&#x1F4AC;</span>CURRENT STATUS</div>
+          <div class="field-group">
+            <label class="field-label">Status message (shown in menubar on hover)</label>
+            <input class="field-input" id="status-msg" placeholder="Shipping something cursed rn..." />
+          </div>
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label">Status emoji</label>
+              <input class="field-input" id="status-emoji" placeholder="🔥" maxlength="4" />
+            </div>
+            <div class="field-group">
+              <label class="field-label">Status color</label>
+              <div class="color-row">
+                <input type="color" id="status-color-pick" value="#c8ff00" oninput="document.getElementById('status-color').value=this.value" />
+                <input class="field-input" id="status-color" placeholder="#c8ff00" oninput="document.getElementById('status-color-pick').value=this.value||'#c8ff00'" />
+              </div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Currently working on</label>
+            <input class="field-input" id="status-working" placeholder="ENYANWUMA.OS v3 — building the impossible" />
+          </div>
+          <div class="field-group">
+            <label class="field-label">Currently listening to</label>
+            <input class="field-input" id="status-listening" placeholder="Playboi Carti — WHOLE LOTTA RED" />
+          </div>
+          <div class="field-group">
+            <label class="field-label">Currently reading / watching</label>
+            <input class="field-input" id="status-reading" placeholder="Omniscient Reader's Viewpoint ch.166" />
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="saveStatus()">&#x2713; SAVE STATUS</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── DEVLOG ── -->
+      <div class="admin-panel" id="panel-devlog">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">DEVLOG POSTS</div>
+            <div class="panel-subtitle">Edit existing posts or add new entries to the devlog</div>
+          </div>
+          <div class="panel-tag">&#x1F4DD; CONTENT</div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">+</span>NEW POST</div>
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label">Title</label>
+              <input class="field-input" id="new-post-title" placeholder="What I learned building..." />
+            </div>
+            <div class="field-group">
+              <label class="field-label">Tag</label>
+              <select class="field-select" id="new-post-tag">
+                <option value="build">BUILD</option>
+                <option value="learn">LEARN</option>
+                <option value="reflect">REFLECT</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Excerpt (preview text)</label>
+            <textarea class="field-textarea" id="new-post-excerpt" placeholder="A short teaser shown in the card..." style="min-height:60px"></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Full body (supports HTML)</label>
+            <textarea class="field-textarea" id="new-post-body" placeholder="&lt;p&gt;Write the full post here...&lt;/p&gt;" style="min-height:160px"></textarea>
+          </div>
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label">Date label</label>
+              <input class="field-input" id="new-post-date" placeholder="JUN 2025" />
+            </div>
+            <div class="field-group">
+              <label class="field-label">Read time</label>
+              <input class="field-input" id="new-post-readtime" placeholder="3 min read" />
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="addDevlogPost()">+ PUBLISH POST</button>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">&#x1F4DD;</span>EXISTING POSTS</div>
+          <div class="devlog-list" id="devlog-list"></div>
+        </div>
+      </div>
+
+      <!-- ── MANHWA DB ── -->
+      <div class="admin-panel" id="panel-manhwa">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">MANHWA DATABASE</div>
+            <div class="panel-subtitle">Add, edit or remove manhwa titles from the reader</div>
+          </div>
+          <div class="panel-tag">&#x1F4D6; CONTENT</div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">+</span>ADD NEW TITLE</div>
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label">Title</label>
+              <input class="field-input" id="new-mw-title" placeholder="My Dress-Up Darling" />
+            </div>
+            <div class="field-group">
+              <label class="field-label">Alt / Korean Title</label>
+              <input class="field-input" id="new-mw-alt" placeholder="그 시절 우리가 좋아했던 소녀" />
+            </div>
+          </div>
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label">Author</label>
+              <input class="field-input" id="new-mw-author" placeholder="Author · Artist" />
+            </div>
+            <div class="field-group">
+              <label class="field-label">Genre</label>
+              <input class="field-input" id="new-mw-genre" placeholder="Action · Fantasy" />
+            </div>
+          </div>
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label">Latest Chapter</label>
+              <input class="field-input" id="new-mw-chap" placeholder="Ch. 120" />
+            </div>
+            <div class="field-group">
+              <label class="field-label">Score (0–10)</label>
+              <input class="field-input" id="new-mw-score" placeholder="9.2" type="number" min="0" max="10" step="0.1" />
+            </div>
+          </div>
+          <div class="two-col">
+            <div class="field-group">
+              <label class="field-label">Status</label>
+              <select class="field-select" id="new-mw-status">
+                <option>Ongoing</option>
+                <option>Complete</option>
+                <option>Hiatus</option>
+                <option>Dropped</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label">View Count</label>
+              <input class="field-input" id="new-mw-views" placeholder="50M" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Tags (press Enter to add)</label>
+            <div class="tag-input-wrap" id="new-mw-tags-wrap" onclick="document.getElementById('new-mw-tag-input').focus()">
+              <input class="tag-add-input" id="new-mw-tag-input" placeholder="Add tag..." onkeydown="handleTagInput(event,'new-mw-tags')" />
+            </div>
+            <div id="new-mw-tags" style="display:none"></div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Synopsis</label>
+            <textarea class="field-textarea" id="new-mw-synopsis" placeholder="Write a synopsis..." style="min-height:100px"></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Accent Color</label>
+            <div class="color-row">
+              <input type="color" id="new-mw-color-pick" value="#ff3c78" oninput="document.getElementById('new-mw-color').value=this.value" />
+              <input class="field-input" id="new-mw-color" value="#ff3c78" oninput="document.getElementById('new-mw-color-pick').value=this.value||'#ff3c78'" />
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="addManhwaTitle()">+ ADD TO DATABASE</button>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">&#x1F4D6;</span>EXISTING TITLES</div>
+          <div class="manhwa-list" id="manhwa-admin-list"></div>
+        </div>
+      </div>
+
+      <!-- ── SKILLS ── -->
+      <div class="admin-panel" id="panel-skills">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">SKILLS STACK</div>
+            <div class="panel-subtitle">Edit your tech stack shown in the Skills window</div>
+          </div>
+          <div class="panel-tag">&#x25CE; TOOLKIT</div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">&#x1F4BB;</span>FRONTEND</div>
+          <div class="field-group">
+            <div class="tag-input-wrap" id="skill-fe-wrap" onclick="document.getElementById('skill-fe-input').focus()">
+              <input class="tag-add-input" id="skill-fe-input" placeholder="Add skill..." onkeydown="handleTagInput(event,'skill-fe')" />
+            </div>
+            <div id="skill-fe" style="display:none"></div>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">&#x2699;</span>BACKEND</div>
+          <div class="field-group">
+            <div class="tag-input-wrap" id="skill-be-wrap" onclick="document.getElementById('skill-be-input').focus()">
+              <input class="tag-add-input" id="skill-be-input" placeholder="Add skill..." onkeydown="handleTagInput(event,'skill-be')" />
+            </div>
+            <div id="skill-be" style="display:none"></div>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">&#x1F3A8;</span>3D / CREATIVE</div>
+          <div class="field-group">
+            <div class="tag-input-wrap" id="skill-3d-wrap" onclick="document.getElementById('skill-3d-input').focus()">
+              <input class="tag-add-input" id="skill-3d-input" placeholder="Add skill..." onkeydown="handleTagInput(event,'skill-3d')" />
+            </div>
+            <div id="skill-3d" style="display:none"></div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="saveSkills()">&#x2713; SAVE SKILLS</button>
+        </div>
+      </div>
+
+      <!-- ── ADMIN TERMINAL ── -->
+      <div class="admin-panel" id="panel-terminal">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">ADMIN TERMINAL</div>
+            <div class="panel-subtitle">Direct access to portfolio DB — type 'help' for commands</div>
+          </div>
+          <div class="panel-tag">&#x2B21; SYSTEM</div>
+        </div>
+        <div id="admin-terminal" onclick="document.getElementById('admin-term-input').focus()">
+          <div class="t-line"><span class="t-ok">ENYANWUMA.OS ADMIN TERMINAL v2.0</span></div>
+          <div class="t-line"><span class="t-info">Connected to IndexedDB: EnyanwumaOS</span></div>
+          <div class="t-line"><span class="t-out">Type 'help' to see available commands.</span></div>
+          <div id="admin-term-row">
+            <span id="admin-term-prompt">admin@enyanwuma-os:~$ </span>
+            <input id="admin-term-input" autocomplete="off" spellcheck="false" onkeydown="adminTermKey(event)" placeholder="" />
+          </div>
+        </div>
+        <div class="btn-row" style="margin-top:10px">
+          <button class="btn btn-secondary btn-sm" onclick="adminTermClear()">CLEAR</button>
+          <button class="btn btn-secondary btn-sm" onclick="adminTermRun('db.status')">DB STATUS</button>
+          <button class="btn btn-secondary btn-sm" onclick="adminTermRun('ls')">LS</button>
+          <button class="btn btn-danger btn-sm" onclick="adminTermRun('db.clear')">CLEAR DB</button>
+        </div>
+      </div>
+
+      <!-- ── SETTINGS ── -->
+      <div class="admin-panel" id="panel-settings">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">SETTINGS</div>
+            <div class="panel-subtitle">Admin panel configuration</div>
+          </div>
+          <div class="panel-tag">&#x2699; SYSTEM</div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">&#x1F510;</span>CHANGE PASSKEY</div>
+          <div class="field-group">
+            <label class="field-label">Current passkey</label>
+            <input class="field-input" type="password" id="set-cur-pass" placeholder="Current passkey" />
+          </div>
+          <div class="field-group">
+            <label class="field-label">New passkey</label>
+            <input class="field-input" type="password" id="set-new-pass" placeholder="New passkey (min 6 chars)" />
+          </div>
+          <div class="field-group">
+            <label class="field-label">Confirm new passkey</label>
+            <input class="field-input" type="password" id="set-confirm-pass" placeholder="Confirm new passkey" />
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" onclick="changePasskey()">&#x2713; UPDATE PASSKEY</button>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">&#x1F5C4;</span>DATA MANAGEMENT</div>
+          <p style="font-size:9px;color:rgba(240,237,230,.4);margin-bottom:12px;line-height:1.65">Export all admin data as JSON, or import a backup. The portfolio reads admin data from the same IndexedDB database.</p>
+          <div class="btn-row">
+            <button class="btn btn-secondary" onclick="exportData()">&#x2193; EXPORT JSON</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('import-file').click()">&#x2191; IMPORT JSON</button>
+            <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(this)" />
+            <button class="btn btn-danger" onclick="if(confirm('Wipe ALL admin data from DB?')) nukeAdminData()">&#x26A0; WIPE ADMIN DATA</button>
+          </div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title"><span class="card-icon">&#x1F517;</span>PORTFOLIO LINK</div>
+          <div class="field-group">
+            <label class="field-label">Portfolio file path / URL (for reference)</label>
+            <input class="field-input" id="set-portfolio-path" value="enyanwuma-os-v5.html" />
+            <div class="field-hint">Keep both files in the same folder for IndexedDB to share the same origin</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /admin-content -->
+  </div><!-- /admin-body -->
+</div><!-- /admin-app -->
+
+<!-- Toast -->
+<div id="admin-toast"><div class="toast-title" id="admin-toast-title">System</div><div class="toast-msg" id="admin-toast-msg"></div></div>
+
+<!-- Status bar -->
+<div id="admin-statusbar">
+  <div class="statusbar-dot green"></div>
+  <span>DB: CONNECTED</span>
+  <div class="statusbar-sep"></div>
+  <div class="statusbar-dot orange"></div>
+  <span>ADMIN CONSOLE v2.0</span>
+  <div class="statusbar-sep"></div>
+  <span>Changes visible to portfolio on next load / refresh</span>
+  <span id="statusbar-save-time">Last save: —</span>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ═══════════════════════════════════════════════════════════
+   SHARED IndexedDB — SAME DB as portfolio (EnyanwumaOS)
+   Admin writes to keys prefixed 'admin_' so they don't
+   clash with OS session state, but the portfolio can read them.
+═══════════════════════════════════════════════════════════ */
+var DB_NAME = 'EnyanwumaOS';
+var DB_VER  = 1;
+var STORE   = 'state';
+var _db     = null;
+
+function dbOpen(cb) {
+  if (_db) { cb(_db); return; }
+  var req = indexedDB.open(DB_NAME, DB_VER);
+  req.onupgradeneeded = function(e) {
+    var db = e.target.result;
+    if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE);
+  };
+  req.onsuccess = function(e) { _db = e.target.result; cb(_db); };
+  req.onerror   = function()  { cb(null); };
+}
+
+function dbSet(key, val, cb) {
+  dbOpen(function(db) {
+    if (!db) { if(cb) cb(false); return; }
+    try {
+      var tx = db.transaction(STORE, 'readwrite');
+      tx.objectStore(STORE).put(val, key);
+      tx.oncomplete = function(){ if(cb) cb(true); };
+      tx.onerror    = function(){ if(cb) cb(false); };
+    } catch(e){ if(cb) cb(false); }
+  });
+}
+
+function dbGet(key, cb) {
+  dbOpen(function(db) {
+    if (!db) { cb(null); return; }
+    try {
+      var tx = db.transaction(STORE, 'readonly');
+      var req = tx.objectStore(STORE).get(key);
+      req.onsuccess = function(){ cb(req.result !== undefined ? req.result : null); };
+      req.onerror   = function(){ cb(null); };
+    } catch(e){ cb(null); }
+  });
+}
+
+function dbGetAll(cb) {
+  dbOpen(function(db) {
+    if (!db) { cb({}); return; }
+    try {
+      var tx = db.transaction(STORE, 'readonly');
+      var result = {};
+      tx.objectStore(STORE).openCursor().onsuccess = function(e) {
+        var cur = e.target.result;
+        if (cur) { result[cur.key] = cur.value; cur.continue(); }
+        else cb(result);
+      };
+      tx.onerror = function(){ cb({}); };
+    } catch(e){ cb({}); }
+  });
+}
+
+function dbDelete(key, cb) {
+  dbOpen(function(db) {
+    if (!db) { if(cb) cb(false); return; }
+    try {
+      var tx = db.transaction(STORE, 'readwrite');
+      tx.objectStore(STORE).delete(key);
+      tx.oncomplete = function(){ if(cb) cb(true); };
+    } catch(e){ if(cb) cb(false); }
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   AUTH — stored in localStorage only (never in IndexedDB)
+   Default passkey: "admin2025"  — change on first login
+═══════════════════════════════════════════════════════════ */
+var DEFAULT_PASS = 'admin2025';
+var MAX_ATTEMPTS = 5;
+var LOCKOUT_MS   = 5 * 60 * 1000; // 5 minutes
+
+function getStoredPass() {
+  return localStorage.getItem('enya_admin_pass') || DEFAULT_PASS;
+}
+
+function getAttempts() {
+  return JSON.parse(localStorage.getItem('enya_admin_attempts') || '{"count":0,"time":0}');
+}
+
+function recordAttempt(success) {
+  if (success) {
+    localStorage.setItem('enya_admin_attempts', JSON.stringify({count:0,time:0}));
+    return;
+  }
+  var a = getAttempts();
+  a.count++;
+  a.time = Date.now();
+  localStorage.setItem('enya_admin_attempts', JSON.stringify(a));
+}
+
+function isLockedOut() {
+  var a = getAttempts();
+  if (a.count >= MAX_ATTEMPTS) {
+    var elapsed = Date.now() - a.time;
+    if (elapsed < LOCKOUT_MS) return Math.round((LOCKOUT_MS - elapsed) / 1000);
+    // Lockout expired
+    recordAttempt(true);
+    return 0;
+  }
+  return 0;
+}
+
+window.tryUnlock = function() {
+  var lockout = isLockedOut();
+  if (lockout > 0) {
+    document.getElementById('lock-err').textContent = 'Locked out. Try again in ' + lockout + 's.';
+    return;
+  }
+  var val = document.getElementById('lock-input').value.trim();
+  if (val === getStoredPass()) {
+    recordAttempt(true);
+    document.getElementById('lock-screen').classList.add('unlocking');
+    setTimeout(function(){
+      document.getElementById('lock-screen').style.display = 'none';
+      document.getElementById('admin-app').classList.add('visible');
+      initAdmin();
+    }, 420);
+  } else {
+    recordAttempt(false);
+    var inp = document.getElementById('lock-input');
+    inp.value = '';
+    inp.classList.add('error');
+    setTimeout(function(){ inp.classList.remove('error'); }, 400);
+    var a = getAttempts();
+    var left = MAX_ATTEMPTS - a.count;
+    document.getElementById('lock-err').textContent = 'Wrong passkey. ' + (left > 0 ? left + ' attempts remaining.' : 'Account locked for 5 minutes.');
+    if (left <= 2 && left > 0) document.getElementById('lock-attempts').textContent = '⚠ ' + left + ' attempts left before lockout';
+  }
+};
+
+document.getElementById('lock-input').addEventListener('keydown', function(e){
+  if (e.key === 'Enter') window.tryUnlock();
+});
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN STATE — all the editable data
+═══════════════════════════════════════════════════════════ */
+var STATE = {
+  vibes:    ['🔥 Extremely Elevated','⚡ Off the Charts','🌊 Deep in Flow State','💀 Dangerously Based'],
+  bio:      { name:'', short:'', extended:'', location:'', availability:'open' },
+  status:   { msg:'', emoji:'🔥', color:'#c8ff00', working:'', listening:'', reading:'' },
+  devlog:   [], // extra posts added via admin (merged with hardcoded ones in portfolio)
+  manhwa:   [], // extra manhwa entries added via admin
+  skills:   { fe:[], be:[], creative:[] },
+  passkey:  null // if set, overrides DEFAULT_PASS
+};
+
+var TAG_STORES = {}; // { 'new-mw-tags': ['tag1','tag2'], ... }
+
+/* ── Load all admin data from DB ── */
+function loadAdminData(cb) {
+  var keys = ['admin_vibes','admin_bio','admin_status','admin_devlog','admin_manhwa','admin_skills'];
+  var loaded = 0;
+  keys.forEach(function(k) {
+    dbGet(k, function(val) {
+      if (val !== null) {
+        var field = k.replace('admin_','');
+        STATE[field] = val;
+      }
+      loaded++;
+      if (loaded === keys.length) cb();
+    });
+  });
+}
+
+/* ── Save one field to DB ── */
+function saveField(field, cb) {
+  dbSet('admin_' + field, STATE[field], function(ok) {
+    updateStatusBar();
+    if (cb) cb(ok);
+  });
+}
+
+/* ── Save everything ── */
+window.saveAll = function() {
+  var fields = ['vibes','bio','status','devlog','manhwa','skills'];
+  var done = 0;
+  fields.forEach(function(f) {
+    saveField(f, function(){ done++; if(done===fields.length) toast('SAVED','All changes synced to portfolio ✓'); });
+  });
+};
+
+/* ═══════════════════════════════════════════════════════════
+   INIT ADMIN
+═══════════════════════════════════════════════════════════ */
+function initAdmin() {
+  loadAdminData(function() {
+    renderDashboard();
+    renderVibes();
+    renderBio();
+    renderStatus();
+    renderDevlog();
+    renderManhwa();
+    renderSkills();
+    startClock();
+    updateStatusBar();
+    toast('WELCOME BACK', 'Admin console ready ✓');
+    // DB connection test
+    document.getElementById('dash-sync').textContent = '✓ IndexedDB EnyanwumaOS connected · Changes sync on portfolio reload';
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PANEL NAVIGATION
+═══════════════════════════════════════════════════════════ */
+window.showPanel = function(id) {
+  document.querySelectorAll('.admin-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.sidebar-item').forEach(function(s){ s.classList.remove('active'); });
+  var panel = document.getElementById('panel-'+id);
+  if (panel) panel.classList.add('active');
+  var nav = document.getElementById('nav-'+id);
+  if (nav) nav.classList.add('active');
+  if (id === 'terminal') setTimeout(function(){ document.getElementById('admin-term-input').focus(); }, 100);
+};
+
+/* ═══════════════════════════════════════════════════════════
+   DASHBOARD
+═══════════════════════════════════════════════════════════ */
+function renderDashboard() {
+  document.getElementById('stat-vibes').textContent  = STATE.vibes.length;
+  document.getElementById('stat-devlog').textContent = STATE.devlog.length;
+  document.getElementById('stat-manhwa').textContent = STATE.manhwa.length + 6; // 6 default
+  document.getElementById('stat-skills').textContent = (STATE.skills.fe||[]).length + (STATE.skills.be||[]).length + (STATE.skills.creative||[]).length;
+  document.getElementById('dash-vibe').textContent   = STATE.vibes[0] || '—';
+  document.getElementById('dash-status').textContent = STATE.status.msg || 'No status set';
+  document.getElementById('devlog-badge').textContent  = STATE.devlog.length;
+  document.getElementById('manhwa-badge').textContent  = STATE.manhwa.length + 6;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   VIBES
+═══════════════════════════════════════════════════════════ */
+function renderVibes() {
+  var list = document.getElementById('vibe-list');
+  list.innerHTML = '';
+  STATE.vibes.forEach(function(v, i) {
+    var row = document.createElement('div');
+    row.className = 'vibe-item';
+    var parts = v.match(/^(\S+)\s(.+)$/) || ['', '', v];
+    row.innerHTML =
+      '<span class="vibe-emoji" title="Click to change emoji" onclick="promptEmoji('+i+',this)">'+parts[1]+'</span>' +
+      '<input value="'+parts[2]+'" placeholder="Vibe text..." oninput="STATE.vibes['+i+']=this.previousElementSibling.textContent+\' \'+this.value" style="flex:1;background:transparent;border:none;outline:none;font-family:var(--font-b);font-size:11px;color:var(--cream);caret-color:var(--lime)" />' +
+      '<button class="vibe-delete" onclick="removeVibe('+i+')">✕</button>';
+    list.appendChild(row);
+  });
+}
+
+window.addVibe = function() {
+  STATE.vibes.push('✨ New vibe');
+  renderVibes();
+};
+
+window.removeVibe = function(i) {
+  STATE.vibes.splice(i, 1);
+  renderVibes();
+};
+
+window.promptEmoji = function(i, el) {
+  var e = prompt('Enter an emoji:', el.textContent.trim());
+  if (e) {
+    el.textContent = e;
+    var txt = el.nextElementSibling.value;
+    STATE.vibes[i] = e + ' ' + txt;
+  }
+};
+
+window.saveVibes = function() {
+  // Read current values from inputs
+  var rows = document.querySelectorAll('#vibe-list .vibe-item');
+  STATE.vibes = [];
+  rows.forEach(function(row) {
+    var emoji = row.querySelector('.vibe-emoji').textContent.trim();
+    var text  = row.querySelector('input').value.trim();
+    if (text) STATE.vibes.push(emoji + ' ' + text);
+  });
+  saveField('vibes', function(ok) {
+    toast('VIBES', ok ? 'Vibe options saved ✓' : 'Save failed!');
+    renderDashboard();
+  });
+};
+
+/* ═══════════════════════════════════════════════════════════
+   BIO
+═══════════════════════════════════════════════════════════ */
+function renderBio() {
+  var b = STATE.bio || {};
+  document.getElementById('bio-name').value         = b.name         || '';
+  document.getElementById('bio-short').value        = b.short        || '';
+  document.getElementById('bio-extended').value     = b.extended     || '';
+  document.getElementById('bio-location').value     = b.location     || '';
+  document.getElementById('bio-availability').value = b.availability || 'open';
+}
+
+window.saveBio = function() {
+  STATE.bio = {
+    name:         document.getElementById('bio-name').value.trim(),
+    short:        document.getElementById('bio-short').value.trim(),
+    extended:     document.getElementById('bio-extended').value.trim(),
+    location:     document.getElementById('bio-location').value.trim(),
+    availability: document.getElementById('bio-availability').value
+  };
+  saveField('bio', function(ok){ toast('BIO', ok ? 'Bio saved ✓' : 'Save failed!'); });
+};
+
+window.saveLocation = function() {
+  STATE.bio.location     = document.getElementById('bio-location').value.trim();
+  STATE.bio.availability = document.getElementById('bio-availability').value;
+  saveField('bio', function(ok){ toast('LOCATION', ok ? 'Saved ✓' : 'Save failed!'); });
+};
+
+window.previewBio = function() {
+  var preview = 'Name: ' + (STATE.bio.name||'(from GitHub)') + '\n' +
+                'Bio: '  + (STATE.bio.short||'(from GitHub)') + '\n' +
+                'Ext: '  + (STATE.bio.extended||'—').substring(0,100) + '...\n' +
+                'Loc: '  + (STATE.bio.location||'—');
+  alert(preview);
+};
+
+/* ═══════════════════════════════════════════════════════════
+   STATUS
+═══════════════════════════════════════════════════════════ */
+function renderStatus() {
+  var s = STATE.status || {};
+  document.getElementById('status-msg').value       = s.msg       || '';
+  document.getElementById('status-emoji').value     = s.emoji     || '🔥';
+  document.getElementById('status-color').value     = s.color     || '#c8ff00';
+  document.getElementById('status-working').value   = s.working   || '';
+  document.getElementById('status-listening').value = s.listening || '';
+  document.getElementById('status-reading').value   = s.reading   || '';
+  try { document.getElementById('status-color-pick').value = s.color || '#c8ff00'; } catch(e){}
+}
+
+window.saveStatus = function() {
+  STATE.status = {
+    msg:       document.getElementById('status-msg').value.trim(),
+    emoji:     document.getElementById('status-emoji').value.trim(),
+    color:     document.getElementById('status-color').value.trim(),
+    working:   document.getElementById('status-working').value.trim(),
+    listening: document.getElementById('status-listening').value.trim(),
+    reading:   document.getElementById('status-reading').value.trim()
+  };
+  saveField('status', function(ok){
+    toast('STATUS', ok ? 'Status updated ✓' : 'Save failed!');
+    renderDashboard();
+  });
+};
+
+/* ═══════════════════════════════════════════════════════════
+   DEVLOG
+═══════════════════════════════════════════════════════════ */
+function renderDevlog() {
+  var list = document.getElementById('devlog-list');
+  list.innerHTML = '';
+  if (!STATE.devlog.length) {
+    list.innerHTML = '<div style="font-size:10px;color:rgba(240,237,230,.3);padding:12px;letter-spacing:.06em">No custom posts yet. Default posts from portfolio still show. Add a post above to inject it at the top.</div>';
+    return;
+  }
+  STATE.devlog.forEach(function(p, i) {
+    var card = document.createElement('div');
+    card.className = 'devlog-admin-card';
+    card.innerHTML =
+      '<div class="devlog-card-head">' +
+        '<span class="devlog-card-tag ' + p.tag + '">' + (p.tagLabel||p.tag) + '</span>' +
+        '<div class="devlog-card-title">' + p.title + '</div>' +
+        '<button class="devlog-toggle" onclick="this.closest(\'.devlog-admin-card\').classList.toggle(\'expanded\')">▼</button>' +
+        '<button class="btn btn-danger btn-sm" onclick="removeDevlogPost('+i+')" style="margin-left:8px">✕</button>' +
+      '</div>' +
+      '<div class="devlog-fields">' +
+        '<div class="field-group"><label class="field-label">Title</label><input class="field-input" value="'+escHtml(p.title)+'" onchange="STATE.devlog['+i+'].title=this.value" /></div>' +
+        '<div class="field-group"><label class="field-label">Excerpt</label><textarea class="field-textarea" onchange="STATE.devlog['+i+'].excerpt=this.value" style="min-height:50px">' + escHtml(p.excerpt||'') + '</textarea></div>' +
+        '<div class="field-group"><label class="field-label">Body (HTML)</label><textarea class="field-textarea" onchange="STATE.devlog['+i+'].body=this.value" style="min-height:100px">' + escHtml(p.body||'') + '</textarea></div>' +
+        '<div class="btn-row"><button class="btn btn-primary btn-sm" onclick="saveDevlogPost('+i+')">&#x2713; SAVE</button></div>' +
+      '</div>';
+    list.appendChild(card);
+  });
+}
+
+window.addDevlogPost = function() {
+  var title    = document.getElementById('new-post-title').value.trim();
+  var tag      = document.getElementById('new-post-tag').value;
+  var excerpt  = document.getElementById('new-post-excerpt').value.trim();
+  var body     = document.getElementById('new-post-body').value.trim();
+  var date     = document.getElementById('new-post-date').value.trim() || new Date().toLocaleDateString('en-US',{month:'short',year:'numeric'}).toUpperCase();
+  var readtime = document.getElementById('new-post-readtime').value.trim() || '2 min read';
+  if (!title || !excerpt) { toast('ERROR','Title and excerpt are required'); return; }
+  var post = {
+    id: 'admin_' + Date.now(),
+    date: date, tag: tag, tagLabel: tag.toUpperCase(),
+    title: title, readTime: readtime, excerpt: excerpt, body: body
+  };
+  STATE.devlog.unshift(post);
+  saveField('devlog', function(ok) {
+    if (ok) {
+      toast('DEVLOG', 'Post published ✓');
+      ['new-post-title','new-post-excerpt','new-post-body','new-post-date','new-post-readtime'].forEach(function(id){ document.getElementById(id).value=''; });
+      renderDevlog();
+      renderDashboard();
+    } else toast('ERROR','Failed to save post');
+  });
+};
+
+window.removeDevlogPost = function(i) {
+  if (!confirm('Delete this post?')) return;
+  STATE.devlog.splice(i, 1);
+  saveField('devlog', function(){ renderDevlog(); renderDashboard(); toast('DEVLOG','Post deleted'); });
+};
+
+window.saveDevlogPost = function(i) {
+  saveField('devlog', function(ok){ toast('DEVLOG', ok ? 'Post updated ✓' : 'Save failed'); });
+};
+
+/* ═══════════════════════════════════════════════════════════
+   MANHWA
+═══════════════════════════════════════════════════════════ */
+function renderManhwa() {
+  var list = document.getElementById('manhwa-admin-list');
+  list.innerHTML = '';
+  if (!STATE.manhwa.length) {
+    list.innerHTML = '<div style="font-size:10px;color:rgba(240,237,230,.3);padding:12px;letter-spacing:.06em">No custom titles yet. The 6 default titles still show. Add a title above to inject it into the Manhwa DB.</div>';
+    return;
+  }
+  STATE.manhwa.forEach(function(m, i) {
+    var card = document.createElement('div');
+    card.className = 'manhwa-admin-card';
+    card.innerHTML =
+      '<div class="manhwa-card-head" onclick="this.closest(\'.manhwa-admin-card\').classList.toggle(\'expanded\')">' +
+        '<div class="manhwa-card-rank">#'+(i+7)+'</div>' +
+        '<div class="manhwa-card-name">'+escHtml(m.title)+'</div>' +
+        '<div class="manhwa-card-status">'+escHtml(m.status||'Ongoing')+'</div>' +
+        '<button class="manhwa-toggle">▼</button>' +
+        '<button class="btn btn-danger btn-sm" onclick="event.stopPropagation();removeManhwa('+i+')" style="margin-left:8px">✕</button>' +
+      '</div>' +
+      '<div class="manhwa-fields">' +
+        '<div class="two-col">' +
+          '<div class="field-group"><label class="field-label">Title</label><input class="field-input" value="'+escHtml(m.title)+'" onchange="STATE.manhwa['+i+'].title=this.value" /></div>' +
+          '<div class="field-group"><label class="field-label">Score</label><input class="field-input" value="'+escHtml(m.score||'')+'" onchange="STATE.manhwa['+i+'].score=this.value" /></div>' +
+        '</div>' +
+        '<div class="field-group"><label class="field-label">Synopsis</label><textarea class="field-textarea" onchange="STATE.manhwa['+i+'].synopsis=this.value" style="min-height:80px">'+escHtml(m.synopsis||'')+'</textarea></div>' +
+        '<div class="btn-row"><button class="btn btn-primary btn-sm" onclick="saveManhwa()">&#x2713; SAVE</button></div>' +
+      '</div>';
+    list.appendChild(card);
+  });
+}
+
+window.addManhwaTitle = function() {
+  var title    = document.getElementById('new-mw-title').value.trim();
+  var alt      = document.getElementById('new-mw-alt').value.trim();
+  var author   = document.getElementById('new-mw-author').value.trim();
+  var genre    = document.getElementById('new-mw-genre').value.trim();
+  var chap     = document.getElementById('new-mw-chap').value.trim();
+  var score    = document.getElementById('new-mw-score').value.trim();
+  var status   = document.getElementById('new-mw-status').value;
+  var views    = document.getElementById('new-mw-views').value.trim();
+  var synopsis = document.getElementById('new-mw-synopsis').value.trim();
+  var color    = document.getElementById('new-mw-color').value.trim() || '#ff3c78';
+  var tags     = (TAG_STORES['new-mw-tags'] || []).slice();
+  if (!title) { toast('ERROR','Title is required'); return; }
+  var entry = {
+    id: 'admin_' + Date.now(),
+    rank: STATE.manhwa.length + 7,
+    title: title, alt: alt, author: author, genre: genre,
+    chaps: chap, score: score, views: views, status: status,
+    synopsis: synopsis, tags: tags, colors: [color, '#330020','#0a0005'],
+    isNew: true, chapters: [], comments: []
+  };
+  STATE.manhwa.push(entry);
+  saveManhwa(function() {
+    toast('MANHWA','Title added to database ✓');
+    ['new-mw-title','new-mw-alt','new-mw-author','new-mw-genre','new-mw-chap','new-mw-score','new-mw-views','new-mw-synopsis'].forEach(function(id){ document.getElementById(id).value=''; });
+    TAG_STORES['new-mw-tags'] = [];
+    renderTagWrap('new-mw-tags', 'new-mw-tags-wrap');
+    renderManhwa();
+    renderDashboard();
+  });
+};
+
+window.removeManhwa = function(i) {
+  if (!confirm('Remove this title?')) return;
+  STATE.manhwa.splice(i, 1);
+  saveManhwa(function(){ renderManhwa(); renderDashboard(); toast('MANHWA','Title removed'); });
+};
+
+window.saveManhwa = function(cb) {
+  saveField('manhwa', function(ok){ if(cb) cb(ok); else toast('MANHWA', ok ? 'Saved ✓' : 'Save failed'); });
+};
+
+/* ═══════════════════════════════════════════════════════════
+   SKILLS
+═══════════════════════════════════════════════════════════ */
+var DEFAULT_SKILLS = {
+  fe: ['HTML','CSS','JavaScript','React','TypeScript'],
+  be: ['Node.js','Python','REST APIs','Express'],
+  creative: ['Blender','Geometry Nodes','DaVinci Resolve','Figma']
+};
+
+function renderSkills() {
+  var sk = STATE.skills || {};
+  ['fe','be','3d'].forEach(function(cat) {
+    var field = cat === '3d' ? 'creative' : cat;
+    var arr = sk[field] || (DEFAULT_SKILLS[cat === '3d' ? 'creative' : cat] || []);
+    TAG_STORES['skill-'+cat] = arr.slice();
+    renderTagWrap('skill-'+cat, 'skill-'+cat+'-wrap');
+  });
+}
+
+window.saveSkills = function() {
+  STATE.skills = {
+    fe:       TAG_STORES['skill-fe']  || [],
+    be:       TAG_STORES['skill-be']  || [],
+    creative: TAG_STORES['skill-3d']  || []
+  };
+  saveField('skills', function(ok){ toast('SKILLS', ok ? 'Skills saved ✓' : 'Save failed'); renderDashboard(); });
+};
+
+/* ═══════════════════════════════════════════════════════════
+   TAG INPUT SYSTEM
+═══════════════════════════════════════════════════════════ */
+window.handleTagInput = function(e, storeKey) {
+  if (e.key === 'Enter' || e.key === ',') {
+    e.preventDefault();
+    var val = e.target.value.trim().replace(',','');
+    if (!val) return;
+    if (!TAG_STORES[storeKey]) TAG_STORES[storeKey] = [];
+    TAG_STORES[storeKey].push(val);
+    e.target.value = '';
+    var wrapId = storeKey === 'new-mw-tags' ? 'new-mw-tags-wrap' : storeKey + '-wrap';
+    renderTagWrap(storeKey, wrapId);
+  } else if (e.key === 'Backspace' && e.target.value === '') {
+    if (!TAG_STORES[storeKey] || !TAG_STORES[storeKey].length) return;
+    TAG_STORES[storeKey].pop();
+    var wrapId2 = storeKey === 'new-mw-tags' ? 'new-mw-tags-wrap' : storeKey + '-wrap';
+    renderTagWrap(storeKey, wrapId2);
+  }
+};
+
+function renderTagWrap(storeKey, wrapId) {
+  var wrap = document.getElementById(wrapId);
+  if (!wrap) return;
+  var input = wrap.querySelector('.tag-add-input');
+  // Remove old chips
+  Array.from(wrap.querySelectorAll('.tag-chip')).forEach(function(c){ c.remove(); });
+  var tags = TAG_STORES[storeKey] || [];
+  tags.forEach(function(tag, i) {
+    var chip = document.createElement('div');
+    chip.className = 'tag-chip';
+    chip.innerHTML = escHtml(tag) + '<button class="tag-chip-del" onclick="removeTag(\''+storeKey+'\','+i+',\''+wrapId+'\')">✕</button>';
+    wrap.insertBefore(chip, input);
+  });
+}
+
+window.removeTag = function(storeKey, i, wrapId) {
+  TAG_STORES[storeKey].splice(i, 1);
+  renderTagWrap(storeKey, wrapId);
+};
+
+/* ═══════════════════════════════════════════════════════════
+   ADMIN TERMINAL
+═══════════════════════════════════════════════════════════ */
+var termHist = [];
+var termHistIdx = -1;
+
+window.adminTermKey = function(e) {
+  var inp = document.getElementById('admin-term-input');
+  if (e.key === 'Enter') {
+    var cmd = inp.value.trim(); inp.value = ''; termHistIdx = -1;
+    if (cmd) { termHist.unshift(cmd); runAdminCmd(cmd); }
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (termHistIdx < termHist.length-1) { termHistIdx++; inp.value = termHist[termHistIdx]||''; }
+  } else if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    if (termHistIdx > 0) { termHistIdx--; inp.value = termHist[termHistIdx]||''; } else { termHistIdx=-1; inp.value=''; }
+  }
+};
+
+window.adminTermRun = function(cmd) { runAdminCmd(cmd); };
+
+window.adminTermClear = function() {
+  var t = document.getElementById('admin-terminal');
+  var row = document.getElementById('admin-term-row');
+  Array.from(t.querySelectorAll('.t-line')).forEach(function(l){ l.remove(); });
+  tOut('ok','Terminal cleared.');
+};
+
+function tLine(type, html) {
+  var t = document.getElementById('admin-terminal');
+  var row = document.getElementById('admin-term-row');
+  var el = document.createElement('div');
+  el.className = 't-line';
+  el.innerHTML = '<span class="t-'+type+'">'+html+'</span>';
+  t.insertBefore(el, row);
+  t.scrollTop = t.scrollHeight;
+}
+function tCmd(cmd) { tLine('line','<span class="t-prompt">admin@enyanwuma-os:~$ </span><span class="t-cmd">'+escHtml(cmd)+'</span>'); }
+function tOut(type, html) { tLine(type, html); }
+
+function runAdminCmd(cmd) {
+  tCmd(cmd);
+  var c = cmd.toLowerCase().trim();
+
+  if (c === 'help' || c === '?') {
+    tOut('info','Available commands:');
+    [
+      'ls              — list all DB keys',
+      'db.status       — show DB connection info',
+      'db.clear        — wipe entire DB (dangerous!)',
+      'get [key]       — read a DB key',
+      'set [key] [val] — write a raw string value',
+      'del [key]       — delete a key',
+      'admin.export    — export all admin data as JSON',
+      'admin.reload    — reload admin data from DB',
+      'vibes           — show current vibe list',
+      'bio             — show current bio',
+      'status          — show current status',
+      'devlog          — list devlog posts',
+      'manhwa          — list manhwa titles',
+      'lock            — lock the admin console',
+      'clear / cls     — clear terminal'
+    ].forEach(function(l){ tOut('out', l); });
+
+  } else if (c === 'ls') {
+    dbGetAll(function(all) {
+      var keys = Object.keys(all);
+      if (!keys.length) { tOut('out','(empty)'); return; }
+      keys.forEach(function(k){ tOut('out', k + ' → ' + JSON.stringify(all[k]).substring(0,60) + (JSON.stringify(all[k]).length>60?'…':'')); });
+    });
+
+  } else if (c === 'db.status') {
+    tOut('ok','DB: EnyanwumaOS · Store: state · Status: connected');
+    dbGetAll(function(all){ tOut('info', Object.keys(all).length + ' keys total'); });
+
+  } else if (c === 'db.clear') {
+    if (!confirm('WIPE ENTIRE DB? This removes ALL data including session state.')) { tOut('err','Cancelled.'); return; }
+    dbOpen(function(db){
+      if (!db) { tOut('err','DB not available'); return; }
+      var tx = db.transaction(STORE, 'readwrite');
+      tx.objectStore(STORE).clear();
+      tx.oncomplete = function(){ tOut('ok','DB wiped. Reload portfolio to see fresh state.'); };
+    });
+
+  } else if (c.startsWith('get ')) {
+    var key = cmd.slice(4).trim();
+    dbGet(key, function(val){ tOut(val!==null?'ok':'err', key + ' → ' + (val!==null ? JSON.stringify(val).substring(0,200) : 'NOT FOUND')); });
+
+  } else if (c.startsWith('del ')) {
+    var dk = cmd.slice(4).trim();
+    dbDelete(dk, function(ok){ tOut(ok?'ok':'err', ok ? 'Deleted: '+dk : 'Failed to delete: '+dk); });
+
+  } else if (c.startsWith('set ')) {
+    var parts = cmd.slice(4).trim().split(' ');
+    var sk = parts[0], sv = parts.slice(1).join(' ');
+    dbSet(sk, sv, function(ok){ tOut(ok?'ok':'err', ok ? 'Set: '+sk+' = '+sv : 'Failed'); });
+
+  } else if (c === 'admin.export') {
+    exportData(); tOut('ok','Exporting...');
+
+  } else if (c === 'admin.reload') {
+    loadAdminData(function(){ tOut('ok','Admin data reloaded from DB.'); renderDashboard(); renderVibes(); renderBio(); renderStatus(); renderDevlog(); renderManhwa(); renderSkills(); });
+
+  } else if (c === 'vibes') {
+    tOut('info','Current vibes (' + STATE.vibes.length + '):');
+    STATE.vibes.forEach(function(v,i){ tOut('out', '['+i+'] '+v); });
+
+  } else if (c === 'bio') {
+    tOut('info','BIO:');
+    tOut('out','Name: ' + (STATE.bio.name||'(from GitHub)'));
+    tOut('out','Short: ' + (STATE.bio.short||'—'));
+    tOut('out','Location: ' + (STATE.bio.location||'—'));
+    tOut('out','Availability: ' + (STATE.bio.availability||'—'));
+
+  } else if (c === 'status') {
+    tOut('info','STATUS:');
+    Object.keys(STATE.status||{}).forEach(function(k){ tOut('out',k+': '+STATE.status[k]); });
+
+  } else if (c === 'devlog') {
+    tOut('info', STATE.devlog.length + ' admin devlog post(s):');
+    STATE.devlog.forEach(function(p,i){ tOut('out','['+i+'] '+p.date+' · '+p.title); });
+
+  } else if (c === 'manhwa') {
+    tOut('info', STATE.manhwa.length + ' admin manhwa title(s):');
+    STATE.manhwa.forEach(function(m,i){ tOut('out','['+i+'] '+m.title+' · '+m.status); });
+
+  } else if (c === 'lock') {
+    lockAdmin();
+
+  } else if (c === 'clear' || c === 'cls') {
+    window.adminTermClear();
+
+  } else {
+    tOut('err', 'Command not found: ' + escHtml(cmd) + ' — type help');
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SETTINGS
+═══════════════════════════════════════════════════════════ */
+window.changePasskey = function() {
+  var cur = document.getElementById('set-cur-pass').value;
+  var nw  = document.getElementById('set-new-pass').value;
+  var cf  = document.getElementById('set-confirm-pass').value;
+  if (cur !== getStoredPass()) { toast('ERROR','Current passkey is wrong'); return; }
+  if (nw.length < 6) { toast('ERROR','Passkey must be at least 6 characters'); return; }
+  if (nw !== cf) { toast('ERROR','Passkeys do not match'); return; }
+  localStorage.setItem('enya_admin_pass', nw);
+  toast('SECURITY','Passkey updated ✓ — use new passkey next time');
+  ['set-cur-pass','set-new-pass','set-confirm-pass'].forEach(function(id){ document.getElementById(id).value=''; });
+};
+
+window.exportData = function() {
+  var data = { vibes: STATE.vibes, bio: STATE.bio, status: STATE.status, devlog: STATE.devlog, manhwa: STATE.manhwa, skills: STATE.skills };
+  var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'enyanwuma-admin-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  toast('EXPORT','JSON downloaded ✓');
+};
+
+window.importData = function(input) {
+  var file = input.files[0]; if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      var data = JSON.parse(e.target.result);
+      if (data.vibes)  STATE.vibes  = data.vibes;
+      if (data.bio)    STATE.bio    = data.bio;
+      if (data.status) STATE.status = data.status;
+      if (data.devlog) STATE.devlog = data.devlog;
+      if (data.manhwa) STATE.manhwa = data.manhwa;
+      if (data.skills) STATE.skills = data.skills;
+      window.saveAll();
+      renderDashboard(); renderVibes(); renderBio(); renderStatus(); renderDevlog(); renderManhwa(); renderSkills();
+      toast('IMPORT','Data imported ✓');
+    } catch(ex) { toast('ERROR','Invalid JSON file'); }
+  };
+  reader.readAsText(file);
+};
+
+window.nukeAdminData = function() {
+  ['admin_vibes','admin_bio','admin_status','admin_devlog','admin_manhwa','admin_skills'].forEach(function(k){ dbDelete(k); });
+  STATE = { vibes:[], bio:{}, status:{}, devlog:[], manhwa:[], skills:{} };
+  toast('WIPED','All admin data deleted from DB');
+  renderDashboard(); renderVibes(); renderBio(); renderStatus(); renderDevlog(); renderManhwa(); renderSkills();
+};
+
+/* ═══════════════════════════════════════════════════════════
+   LOCK
+═══════════════════════════════════════════════════════════ */
+window.lockAdmin = function() {
+  document.getElementById('admin-app').classList.remove('visible');
+  document.getElementById('lock-screen').style.display = 'flex';
+  document.getElementById('lock-screen').classList.remove('unlocking');
+  document.getElementById('lock-input').value = '';
+  document.getElementById('lock-err').textContent = '';
+};
+
+/* ═══════════════════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════════════════ */
+var toastTimer = null;
+function toast(title, msg) {
+  var t = document.getElementById('admin-toast');
+  document.getElementById('admin-toast-title').textContent = title;
+  document.getElementById('admin-toast-msg').textContent   = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 3200);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CLOCK + STATUS BAR
+═══════════════════════════════════════════════════════════ */
+function startClock() {
+  function tick() {
+    var n = new Date();
+    var el = document.getElementById('admin-clock');
+    if (el) el.textContent = n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  }
+  tick(); setInterval(tick, 1000);
+}
+
+function updateStatusBar() {
+  var now = new Date();
+  var el = document.getElementById('statusbar-save-time');
+  if (el) el.textContent = 'Last save: ' + now.toLocaleTimeString();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LOCK SCREEN CANVAS
+═══════════════════════════════════════════════════════════ */
+(function() {
+  var cv = document.getElementById('lock-canvas');
+  var cx = cv.getContext('2d');
+  function resize() { cv.width = window.innerWidth; cv.height = window.innerHeight; }
+  window.addEventListener('resize', resize); resize();
+  var t = 0;
+  (function loop() {
+    if (document.getElementById('lock-screen').style.display === 'none') return;
+    cx.clearRect(0,0,cv.width,cv.height);
+    cx.strokeStyle='rgba(200,255,0,.04)'; cx.lineWidth=1;
+    for(var x=0;x<cv.width;x+=40){ cx.beginPath();cx.moveTo(x,0);cx.lineTo(x,cv.height);cx.stroke(); }
+    for(var y=0;y<cv.height;y+=40){ cx.beginPath();cx.moveTo(0,y);cx.lineTo(cv.width,y);cx.stroke(); }
+    // scanline
+    cx.fillStyle='rgba(200,255,0,.04)';
+    cx.fillRect(0,(t*3)%cv.height, cv.width, 2);
+    t++;
+    // corner markers
+    cx.strokeStyle='rgba(200,255,0,.25)'; cx.lineWidth=1.5;
+    [[0,0,1,1],[cv.width,0,-1,1],[0,cv.height,1,-1],[cv.width,cv.height,-1,-1]].forEach(function(p){
+      cx.beginPath();cx.moveTo(p[0],p[1]+p[3]*28);cx.lineTo(p[0],p[1]);cx.lineTo(p[0]+p[2]*28,p[1]);cx.stroke();
+    });
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   UTILS
+═══════════════════════════════════════════════════════════ */
+function escHtml(s) {
+  if (typeof s !== 'string') return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ── On page load: check if already unlocked in session ── */
+if (sessionStorage.getItem('enya_admin_unlocked') === '1') {
+  document.getElementById('lock-screen').style.display = 'none';
+  document.getElementById('admin-app').classList.add('visible');
+  initAdmin();
+}
+
+document.getElementById('lock-submit').addEventListener('click', function() {
+  // Also set session flag on success (done inside tryUnlock above)
+});
+
+// Store unlock in session so refresh doesn't re-lock
+var _origTryUnlock = window.tryUnlock;
+window.tryUnlock = function() {
+  var val = document.getElementById('lock-input').value.trim();
+  if (val === getStoredPass()) sessionStorage.setItem('enya_admin_unlocked','1');
+  _origTryUnlock();
+};
+
+})();
+</script>
+</body>
+</html>
